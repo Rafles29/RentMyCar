@@ -3,17 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-
 namespace Model
 {
-    public class User
+    public class CarOwner : Car
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Mail { get; set; }
-        public string PhoneNumber { get; set; }
-        public int Rating { get; set; }
-
         public List<Car> Cars { get; set; }
         public void AddCar(Car car)
         {
@@ -25,7 +18,7 @@ namespace Model
             {
                 Cars.RemoveAt(index);
             }
-            else throw new IndexOutOfRangeException();            
+            else throw new IndexOutOfRangeException();
         }
         public void RemoveCarID(int carID)
         {
@@ -35,5 +28,8 @@ namespace Model
                 throw new IndexOutOfRangeException();
             }
         }
+
+        public List<Rent> CarRents { get; set; }
+
     }
 }

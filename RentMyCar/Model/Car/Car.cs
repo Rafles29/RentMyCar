@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -16,8 +17,9 @@ namespace Model
         public Colour MyProperty { get; set; }
         public Performance Performance { get; set; }
 
-        public string CarOwner { get; set; }
-        public User User { get; set; }
+        public long CarOwnerID { get; set; }
+        public CarOwner CarOwner { get; set; }
 
+        public List<Rent> Rents { get; set; }
     }
 }
