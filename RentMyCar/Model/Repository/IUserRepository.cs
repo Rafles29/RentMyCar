@@ -10,7 +10,6 @@ namespace Model.Repository
         IEnumerable<User> GetUsers();
         User GetUser(long userID);
         void UpdateUser(long userID, User updatedUser);
-        void UpdateUsers(IEnumerable<User> updatedUsers);
         void DeleteUser(long userID);
     }
 }

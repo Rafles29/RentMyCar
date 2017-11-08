@@ -10,7 +10,6 @@ namespace Model.Repository
         IEnumerable<Car> GetCars();
         Car GetCar(long carID);
         void UpdateCar(long carID, Car updatedCar);
-        void UpdateCars(IEnumerable<Car> updatedCars);
         void DeleteCar(long carID);
     }
 }

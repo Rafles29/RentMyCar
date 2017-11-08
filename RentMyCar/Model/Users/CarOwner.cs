@@ -8,6 +8,7 @@ namespace Model
     public class CarOwner : Car
     {
         public List<Car> Cars { get; set; }
+        /*
         public void AddCar(Car car)
         {
             Cars.Add(car);
@@ -28,6 +29,7 @@ namespace Model
                 throw new IndexOutOfRangeException();
             }
         }
+        */
 
         public List<Rent> CarRents { get; set; }
 
