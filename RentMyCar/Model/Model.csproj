@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Car\Equipment.cs" />
+    <Compile Remove="Car\Performance.cs" />
+    <Compile Remove="Car\Price.cs" />
+    <Compile Remove="Repository\ICarOwnerRepository.cs" />
+    <Compile Remove="Users\CarOwner.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>

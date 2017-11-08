@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.Repository
 {
-    interface ICarRepository
+    public interface ICarRepository
     {
         void AddCar(Car newCar);
         IEnumerable<Car> GetCars();

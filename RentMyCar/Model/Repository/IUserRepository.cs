@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.Repository
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         void AddUser(User newUser);
         IEnumerable<User> GetUsers();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.Repository
 {
-    interface IRentRepository
+    public interface IRentRepository
     {
         void AddRent(Rent newRent);
         IEnumerable<Rent> GetRents();

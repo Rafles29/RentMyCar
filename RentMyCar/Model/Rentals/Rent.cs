@@ -6,7 +6,7 @@ namespace Model
 {
     public class Rent
     {
-        public long RentId { get; set; }
+        public long RentId { get; private set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
 
@@ -15,9 +15,5 @@ namespace Model
 
         public long UserId { get; set; }
         public User User { get; set; }
-
-        public long CarOwnerId { get; set; }
-        public CarOwner CarOwner { get; set; }
-
     }
 }
