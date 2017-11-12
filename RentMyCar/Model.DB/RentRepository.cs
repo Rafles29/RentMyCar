@@ -6,7 +6,6 @@ using Model.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-
 namespace Model.DB
 {
     class RentRepository : IRentRepository

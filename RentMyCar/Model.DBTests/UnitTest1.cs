@@ -11,23 +11,6 @@ namespace Model.DBTests
         [TestMethod]
         public void TestMethod1()
         {
-            using (var db = new Db())
-            {
-                var user = new User();
-                System.Diagnostics.Debug.WriteLine(user);
-                db.Users.Add(user);
-                db.SaveChanges();
-            }
-            using (var db = new Db())
-            {
-                var user = db.Users.First();
-                System.Diagnostics.Debug.WriteLine(user);
-                var test = new User();
-                test.UserId = 1;
-                System.Diagnostics.Debug.WriteLine(test);
-                Assert.AreEqual(user.UserId, test.UserId);
-            }
-
 
         }
         [TestMethod]

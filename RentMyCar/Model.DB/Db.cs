@@ -8,12 +8,17 @@ namespace Model.DB
     {
         public DbSet<Car> Cars { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Rent> Rents { get; set; }
+        public DbSet<Rent> Rents{ get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); 
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                "Server = (localdb)\\mssqllocaldb; Database = RentData; Trusted_Connection = True");
+                "Server = DESKTOP-AITKV2M; Database = RentMyCarDB; Trusted_Connection = True");
         }
     }
 }
