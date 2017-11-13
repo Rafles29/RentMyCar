@@ -8,11 +8,21 @@ using System.Linq;
 
 namespace Model.DB
 {
-    class CarRepository : ICarRepository
+    public class CarRepository : ICarRepository
     {
+        private static RentMyAppContext _context;
+        public CarRepository()
+        {
+            _context = new RentMyAppContext();
+        }
+        public CarRepository(RentMyAppContext context)
+        {
+            _context = context;
+        }
         public void AddCar(Car newCar)
         {
-            throw new NotImplementedException();
+            _context.Cars.Add(newCar);
+            _context.SaveChanges();
         }
 
         public void DeleteCar(long carID)
@@ -22,17 +32,19 @@ namespace Model.DB
 
         public Car GetCar(long carID)
         {
-            throw new NotImplementedException();
+            return _context.Cars.Find(carID);
         }
 
         public IEnumerable<Car> GetCars()
         {
-            throw new NotImplementedException();
+            return _context.Cars.AsEnumerable<Car>();
         }
 
         public void UpdateCar(long carID, Car updatedCar)
         {
-            throw new NotImplementedException();
+            var originalCar = _context.Cars.Find(carID);
+            _context.Entry(originalCar).CurrentValues.SetValues(updatedCar);
+            _context.SaveChanges();
         }
     }
 }

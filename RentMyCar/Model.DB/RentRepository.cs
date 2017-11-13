@@ -8,8 +8,17 @@ using System.Linq;
 
 namespace Model.DB
 {
-    class RentRepository : IRentRepository
+    public class RentRepository : IRentRepository
     {
+        private static RentMyAppContext _context;
+        public RentRepository()
+        {
+            _context = new RentMyAppContext();
+        }
+        public RentRepository(RentMyAppContext context)
+        {
+            _context = context;
+        }
         public void AddRent(Rent newRent)
         {
             throw new NotImplementedException();

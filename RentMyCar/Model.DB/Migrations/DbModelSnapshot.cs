@@ -11,7 +11,7 @@ using System;
 
 namespace Model.DB.Migrations
 {
-    [DbContext(typeof(Db))]
+    [DbContext(typeof(RentMyAppContext))]
     partial class DbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -11,7 +11,7 @@ using System;
 
 namespace Model.DB.Migrations
 {
-    [DbContext(typeof(Db))]
+    [DbContext(typeof(RentMyAppContext))]
     [Migration("20171112191407_init")]
     partial class init
     {
