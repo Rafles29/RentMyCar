@@ -6,7 +6,7 @@ namespace Model
 {
     public class Adress
     {
-        public long AdressId { get; private set; }
+        public long AdressId { get; set; }
 
         public string City { get; set; }
         public string PostalCode { get; set; }

@@ -38,7 +38,7 @@ namespace Model
             Cars = new List<Car>();
 
         }
-        public long UserId { get; private set; }
+        public long UserId { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string Mail { get; set; }
