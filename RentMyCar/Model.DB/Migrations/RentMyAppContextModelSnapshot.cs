@@ -12,7 +12,7 @@ using System;
 namespace Model.DB.Migrations
 {
     [DbContext(typeof(RentMyAppContext))]
-    partial class DbModelSnapshot : ModelSnapshot
+    partial class RentMyAppContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

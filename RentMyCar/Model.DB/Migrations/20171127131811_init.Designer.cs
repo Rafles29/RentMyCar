@@ -12,7 +12,7 @@ using System;
 namespace Model.DB.Migrations
 {
     [DbContext(typeof(RentMyAppContext))]
-    [Migration("20171112191407_init")]
+    [Migration("20171127131811_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,6 +6,13 @@ namespace Model
 {
     public class Price
     {
+
+        public Price()
+        {
+            this.ShortTermPrice = 0;
+            this.MidTermPrice = 0;
+            this.LongTermPrice = 0;
+        }
         public Price(decimal st)
         {
             this.ShortTermPrice = st;
