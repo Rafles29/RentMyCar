@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Model.DB;
+using Model.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace RentMyCar
 {
@@ -22,7 +25,16 @@ namespace RentMyCar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddDbContext<RentMyCarContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DbConnection")
+            , b => b.MigrationsAssembly("RentMyCar")));
+
+            services.AddScoped<CarRepository>();
+            services.AddScoped<UserRepository>();
+            services.AddMvc().AddJsonOptions(
+        options => options.SerializerSettings.ReferenceLoopHandling =
+        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +54,7 @@ namespace RentMyCar
             }
 
             app.UseStaticFiles();
+
 
             app.UseMvc(routes =>
             {

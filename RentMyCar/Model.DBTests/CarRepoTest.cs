@@ -9,12 +9,12 @@ namespace Model.DBTests
     [TestClass]
     public class CarRepoTest
     {
-        private DbContextOptions<RentMyAppContext> options;
+        private DbContextOptions<RentMyCarContext> options;
 
         [TestInitialize]
         public void Init()
         {
-            options = new DbContextOptionsBuilder<RentMyAppContext>()
+            options = new DbContextOptionsBuilder<RentMyCarContext>()
             .UseInMemoryDatabase(databaseName: "Database")
             .Options;
         }
@@ -27,13 +27,13 @@ namespace Model.DBTests
             testCar.Model = "458";
             testCar.Price = new Price(5000);
 
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
                 service.AddCar(testCar);
             }
 
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 Assert.AreEqual(1, context.Cars.Count());
                 Assert.AreEqual(testCar.Manufactor, context.Cars.Single().Manufactor);
@@ -47,7 +47,7 @@ namespace Model.DBTests
         public void FindCar()
         {
 
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 Car testCar2 = new Car();
                 testCar2.Manufactor = "Ferrari";
@@ -57,7 +57,7 @@ namespace Model.DBTests
                 context.SaveChanges();
             }
 
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
 
@@ -66,7 +66,7 @@ namespace Model.DBTests
                 Assert.AreEqual(result1.Manufactor, "Ferrari");
                 Assert.AreEqual(result1.Model, "458");
             }
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
                 var result2 = service.GetCar(2);
@@ -80,14 +80,14 @@ namespace Model.DBTests
         {
             long cid = 1;
 
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var before = context.Cars.Find(cid);
                 Assert.AreEqual(before.CarId, cid);
                 Assert.AreEqual(before.Manufactor, "Ferrari");
                 Assert.AreEqual(before.Model, "458");
             }
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
 
                 Car testCar2 = new Car();
@@ -107,7 +107,7 @@ namespace Model.DBTests
         [TestMethod]
         public void GetCars()
         {
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
 
@@ -124,12 +124,12 @@ namespace Model.DBTests
         [TestMethod]
         public void DeleteCar()
         {
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
                 service.DeleteCar(1);
             }
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 Assert.AreEqual(1, context.Cars.Count());
                 Assert.AreEqual("Ferrari", context.Cars.Single().Manufactor);
@@ -140,13 +140,13 @@ namespace Model.DBTests
         [TestMethod]
         public void UpdateCarParametrs()
         {
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
                 service.ChangePrice(2, new Price(2500));
                 service.ChangePrice(2, new Price(3500));
             }
-            using (var context = new RentMyAppContext(options))
+            using (var context = new RentMyCarContext(options))
             {
                 Assert.AreEqual(3500, context.Cars.Include(c => c.Price).Include(c => c.Performance)
                 .Include(c => c.Equipment).Single().Price.ShortTermPrice);

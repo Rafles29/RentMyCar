@@ -10,12 +10,9 @@ namespace Model.DB
 {
     public class CarRepository : ICarRepository
     {
-        private static RentMyAppContext _context;
-        public CarRepository()
-        {
-            _context = new RentMyAppContext();
-        }
-        public CarRepository(RentMyAppContext context)
+        private static RentMyCarContext _context;
+
+        public CarRepository(RentMyCarContext context)
         {
             _context = context;
         }
@@ -48,17 +45,34 @@ namespace Model.DB
             _context.SaveChanges();
         }
 
+        public Price GetPrice(long carId)
+        {
+            var car = _context.Cars.Find(carId);
+            return car.Price;
+        }
         public void ChangePrice(long carId, Price price)
         {
             var car = _context.Cars.Find(carId);
             car.Price = price;
             _context.SaveChanges();
         }
+
+        public Equipment GetEquipment(long carId)
+        {
+            var car = _context.Cars.Find(carId);
+            return car.Equipment;
+        }
         public void ChangeEquipment(long carId, Equipment eq)
         {
             var car = _context.Cars.Find(carId);
             car.Equipment = eq;
             _context.SaveChanges();
+        }
+
+        public Performance GetPerformance(long carId)
+        {
+            var car = _context.Cars.Find(carId);
+            return car.Performance;
         }
         public void ChangePerformance(long carId, Performance performance)
         {

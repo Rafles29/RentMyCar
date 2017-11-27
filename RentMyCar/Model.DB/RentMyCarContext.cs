@@ -4,13 +4,9 @@ using Model;
 
 namespace Model.DB
 {
-    public class RentMyAppContext : DbContext
+    public class RentMyCarContext : DbContext
     {
-        public RentMyAppContext()
-        {
-
-        }
-        public RentMyAppContext(DbContextOptions<RentMyAppContext> options) : base(options)
+        public RentMyCarContext(DbContextOptions<RentMyCarContext> options) : base(options)
         {
 
         }
@@ -20,16 +16,12 @@ namespace Model.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>().Property(c => c.UserId).IsRequired();
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(
-                "Server = DESKTOP-AITKV2M; Database = RentMyCarDB; Trusted_Connection = True");
-            }
+
         }
     }
 }

@@ -10,12 +10,9 @@ namespace Model.DB
 {
     public class RentRepository : IRentRepository
     {
-        private static RentMyAppContext _context;
-        public RentRepository()
-        {
-            _context = new RentMyAppContext();
-        }
-        public RentRepository(RentMyAppContext context)
+        private static RentMyCarContext _context;
+
+        public RentRepository(RentMyCarContext context)
         {
             _context = context;
         }

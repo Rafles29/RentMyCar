@@ -10,18 +10,16 @@ namespace Model.DB
 {
     public class UserRepository : IUserRepository
     {
-        private static RentMyAppContext _context;
-        public UserRepository()
-        {
-            _context = new RentMyAppContext();
-        }
-        public UserRepository(RentMyAppContext context)
+        private static RentMyCarContext _context;
+
+        public UserRepository(RentMyCarContext context)
         {
             _context = context;
         }
         public void AddUser(User newUser)
         {
-            throw new NotImplementedException();
+            _context.Add(newUser);
+            _context.SaveChanges();
         }
 
         public void DeleteUser(long userID)
@@ -36,7 +34,7 @@ namespace Model.DB
 
         public IEnumerable<User> GetUsers()
         {
-            throw new NotImplementedException();
+            return _context.Users.Include(u => u.Cars).ToList();
         }
 
         public void UpdateUser(long userID, User updatedUser)

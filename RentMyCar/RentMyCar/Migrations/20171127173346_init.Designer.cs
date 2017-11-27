@@ -9,10 +9,10 @@ using Model;
 using Model.DB;
 using System;
 
-namespace Model.DB.Migrations
+namespace RentMyCar.Migrations
 {
-    [DbContext(typeof(RentMyAppContext))]
-    [Migration("20171127131811_init")]
+    [DbContext(typeof(RentMyCarContext))]
+    [Migration("20171127173346_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

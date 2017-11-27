@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Model.DB.Migrations
+namespace RentMyCar.Migrations
 {
     public partial class init : Migration
     {

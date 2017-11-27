@@ -9,10 +9,10 @@ using Model;
 using Model.DB;
 using System;
 
-namespace Model.DB.Migrations
+namespace RentMyCar.Migrations
 {
-    [DbContext(typeof(RentMyAppContext))]
-    partial class RentMyAppContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RentMyCarContext))]
+    partial class RentMyCarContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
