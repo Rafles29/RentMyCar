@@ -11,5 +11,8 @@ namespace Model.Repository
         Rent GetRent(long rentID);
         void UpdateRent(long rentID, Rent updatedRent);
         void DeleteRent(long rentID);
+
+        Adress GetAdress(long rentID);
+        void SetAdress(long rentID, Adress adress);
     }
 }

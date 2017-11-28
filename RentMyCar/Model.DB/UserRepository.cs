@@ -24,22 +24,28 @@ namespace Model.DB
 
         public void DeleteUser(long userID)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.Find(userID);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
         }
 
         public User GetUser(long userID)
         {
-            throw new NotImplementedException();
+            return _context.Users.Include(u => u.Cars)
+                .Include(u => u.Rents).FirstOrDefault(u => u.UserId == userID);
         }
 
         public IEnumerable<User> GetUsers()
         {
-            return _context.Users.Include(u => u.Cars).ToList();
+            return _context.Users.Include(u => u.Cars)
+                .Include(u => u.Rents).ToList();
         }
 
         public void UpdateUser(long userID, User updatedUser)
         {
-            throw new NotImplementedException();
+            var originalUser = _context.Users.Find(userID);
+            _context.Entry(originalUser).CurrentValues.SetValues(updatedUser);
+            _context.SaveChanges();
         }
     }
 }

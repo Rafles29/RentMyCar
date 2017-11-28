@@ -50,7 +50,7 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Price;
         }
-        public void ChangePrice(long carId, Price price)
+        public void SetPrice(long carId, Price price)
         {
             var car = _context.Cars.Find(carId);
             car.Price = price;
@@ -62,7 +62,7 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Equipment;
         }
-        public void ChangeEquipment(long carId, Equipment eq)
+        public void SetEquipment(long carId, Equipment eq)
         {
             var car = _context.Cars.Find(carId);
             car.Equipment = eq;
@@ -74,7 +74,7 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Performance;
         }
-        public void ChangePerformance(long carId, Performance performance)
+        public void SetPerformance(long carId, Performance performance)
         {
             var car = _context.Cars.Find(carId);
             car.Performance = performance;

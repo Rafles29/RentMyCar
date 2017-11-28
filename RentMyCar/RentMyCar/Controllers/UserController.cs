@@ -21,7 +21,6 @@ namespace RentMyCar.Controllers
         {
             this._repo = userRepository;
         }
-        // GET: api
         // GET: api/values
         [HttpGet]
         public IEnumerable<User> Get()
@@ -31,28 +30,30 @@ namespace RentMyCar.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return _repo.GetUser(id);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]User value)
+        public void Post([FromBody]User newUser)
         {
-            _repo.AddUser(value);
+            _repo.AddUser(newUser);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]User user)
         {
+            _repo.UpdateUser(id, user);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repo.DeleteUser(id);
         }
     }
 }

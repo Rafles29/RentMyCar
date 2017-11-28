@@ -31,6 +31,8 @@ namespace RentMyCar
 
             services.AddScoped<CarRepository>();
             services.AddScoped<UserRepository>();
+            services.AddScoped<RentRepository>();
+
             services.AddMvc().AddJsonOptions(
         options => options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore

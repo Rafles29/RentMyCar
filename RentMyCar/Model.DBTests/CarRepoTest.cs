@@ -143,8 +143,8 @@ namespace Model.DBTests
             using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
-                service.ChangePrice(2, new Price(2500));
-                service.ChangePrice(2, new Price(3500));
+                service.SetPrice(2, new Price(2500));
+                service.SetPrice(2, new Price(3500));
             }
             using (var context = new RentMyCarContext(options))
             {

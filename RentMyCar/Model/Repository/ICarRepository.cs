@@ -13,12 +13,12 @@ namespace Model.Repository
         void DeleteCar(long carID);
 
         Price GetPrice(long carId);
-        void ChangePrice(long carId, Price price);
+        void SetPrice(long carId, Price price);
 
         Equipment GetEquipment(long carId);
-        void ChangeEquipment(long carId, Equipment eq);
+        void SetEquipment(long carId, Equipment eq);
 
         Performance GetPerformance(long carId);
-        void ChangePerformance(long carId, Performance performance);
+        void SetPerformance(long carId, Performance performance);
     }
 }
