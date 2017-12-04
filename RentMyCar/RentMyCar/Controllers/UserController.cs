@@ -20,40 +20,73 @@ namespace RentMyCar.Controllers
         public UserController(UserRepository userRepository)
         {
             this._repo = userRepository;
-        }
+        } 
+
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IActionResult GetUsers()
         {
-            return _repo.GetUsers();
+            return Ok(_repo.GetUsers());
         }
-
         // GET api/values/5
-        [HttpGet("{id}")]
-        public User Get(int id)
+        [HttpGet("{id}", Name = "GetUser")]
+        public IActionResult GetUser(int id)
         {
-            return _repo.GetUser(id);
+            var user = _repo.GetUser(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
         }
-
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]User newUser)
+        public IActionResult Post([FromBody]User newUser)
         {
-            _repo.AddUser(newUser);
-        }
+            if(newUser == null)
+            {
+                return BadRequest();
+            }
 
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = _repo.AddUser(newUser);
+
+            return CreatedAtRoute("GetUser", new { id = user.UserId }, user);
+        }
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]User user)
+        public IActionResult Put(int id, [FromBody]User user)
         {
-            _repo.UpdateUser(id, user);
-        }
+            if (user == null)
+            {
+                return BadRequest();
+            }
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _repo.UpdateUser(id, user);
+
+            return NoContent();
+        }
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var user = _repo.GetUser(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
             _repo.DeleteUser(id);
+            return NoContent();
         }
     }
 }

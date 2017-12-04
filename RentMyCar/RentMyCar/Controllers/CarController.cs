@@ -37,7 +37,6 @@ namespace RentMyCar.Controllers
         [HttpPost]
         public void Post([FromBody]Car car)
         {
-            Console.WriteLine(car);
             _repo.AddCar(car);
         }
 

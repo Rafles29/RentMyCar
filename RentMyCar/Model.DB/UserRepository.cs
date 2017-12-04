@@ -16,10 +16,11 @@ namespace Model.DB
         {
             _context = context;
         }
-        public void AddUser(User newUser)
+        public User AddUser(User newUser)
         {
             _context.Add(newUser);
             _context.SaveChanges();
+            return newUser;
         }
 
         public void DeleteUser(long userID)
