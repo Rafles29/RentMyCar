@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.DB;
 using Model;
+using Model.Repository;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RentMyCar.Controllers
@@ -13,45 +14,79 @@ namespace RentMyCar.Controllers
     public class RentController : Controller
     {
 
-        private RentRepository _repo;
+        private IRentRepository _repo;
 
-        public RentController(RentRepository rentRepository)
+        public RentController(IRentRepository rentRepository)
         {
             this._repo = rentRepository;
         }
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Rent> Get()
+        public IActionResult GetRents()
         {
-            return _repo.GetRents();
+            return Ok(_repo.GetRents());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Rent Get(int id)
+        public IActionResult GetRent(int id)
         {
-            return _repo.GetRent(id);
+            var rent = _repo.GetRent(id);
+            if(rent == null)
+            {
+                return NotFound();
+            }
+            return Ok(rent);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Rent newRent)
+        public IActionResult PostRent([FromBody]Rent newRent)
         {
-            _repo.AddRent(newRent);
+            if (newRent == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var rent = _repo.AddRent(newRent);
+
+            return CreatedAtRoute("GetUser", new { id = rent.RentId }, rent);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Rent rent)
+        public IActionResult PutRent(int id, [FromBody]Rent rent)
         {
+            if (rent == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             _repo.UpdateRent(id, rent);
+
+            return NoContent();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteRent(int id)
         {
+            var rent = _repo.GetRent(id);
+            if (rent == null)
+            {
+                return NotFound();
+            }
             _repo.DeleteRent(id);
+            return NoContent();
         }
     }
 }

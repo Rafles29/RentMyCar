@@ -16,10 +16,11 @@ namespace Model.DB
         {
             _context = context;
         }
-        public void AddCar(Car newCar)
+        public Car AddCar(Car newCar)
         {
             _context.Cars.Add(newCar);
             _context.SaveChanges();
+            return newCar;
         }
         public void DeleteCar(long carID)
         {

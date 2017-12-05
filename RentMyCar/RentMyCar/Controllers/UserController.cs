@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.DB;
 using Model;
+using Model.Repository;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,9 +16,9 @@ namespace RentMyCar.Controllers
     public class UserController : Controller
     {
 
-        private UserRepository _repo;
+        private IUserRepository _repo;
 
-        public UserController(UserRepository userRepository)
+        public UserController(IUserRepository userRepository)
         {
             this._repo = userRepository;
         } 
@@ -42,7 +43,7 @@ namespace RentMyCar.Controllers
         }
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]User newUser)
+        public IActionResult PostRent([FromBody]User newUser)
         {
             if(newUser == null)
             {
@@ -60,7 +61,7 @@ namespace RentMyCar.Controllers
         }
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]User user)
+        public IActionResult PutRent(int id, [FromBody]User user)
         {
             if (user == null)
             {
@@ -78,7 +79,7 @@ namespace RentMyCar.Controllers
         }
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteRent(int id)
         {
             var user = _repo.GetUser(id);
             if (user == null)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -38,10 +38,19 @@ namespace Model
             Cars = new List<Car>();
 
         }
+        [Required]
         public long UserId { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string Login { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string Password { get; set; }
+        [Required]
+        [EmailAddress]
         public string Mail { get; set; }
+        [Required]
+        [Phone]
         public string PhoneNumber { get; set; }
 
         public List<Rent> Rents { get; set; }

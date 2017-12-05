@@ -16,10 +16,11 @@ namespace Model.DB
         {
             _context = context;
         }
-        public void AddRent(Rent newRent)
+        public Rent AddRent(Rent newRent)
         {
             _context.Rents.Add(newRent);
             _context.SaveChanges();
+            return newRent;
         }
 
         public void DeleteRent(long rentID)

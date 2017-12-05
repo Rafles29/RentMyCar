@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -28,9 +29,13 @@ namespace Model
         }
 
         public long CarId { get; set; }
+        [Required]
         public string Manufactor { get; set; }
+        [Required]
         public string Model { get; set; }
+        [Required]
         public int Year { get; set; }
+        [Required]
         public byte[] AvatarImage { get; set; }
 
         public Performance Performance { get; set; }

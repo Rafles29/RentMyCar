@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.DB;
 using Model;
+using Model.Repository;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,45 +14,79 @@ namespace RentMyCar.Controllers
     [Route("api/[controller]")]
     public class CarController : Controller
     {
-        private CarRepository _repo;
+        private ICarRepository _repo;
 
-        public CarController(CarRepository carRepository)
+        public CarController(ICarRepository carRepository)
         {
             this._repo = carRepository;
         }
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Car> Get()
+        public IActionResult GetCars()
         {
-            return _repo.GetCars();
+            return Ok(_repo.GetCars());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Car Get(int id)
+        public IActionResult GetCar(int id)
         {
-            return _repo.GetCar(id);
+            var car = _repo.GetCar(id);
+            if(car == null)
+            {
+                return BadRequest();
+            }
+            return Ok(car);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Car car)
+        public IActionResult PostCar([FromBody]Car newCar)
         {
-            _repo.AddCar(car);
+            if (newCar == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var car = _repo.AddCar(newCar);
+
+            return CreatedAtRoute("GetUser", new { id = car.CarId }, car);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Car car)
+        public IActionResult PutCar(int id, [FromBody]Car car)
         {
+            if (car == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             _repo.UpdateCar(id, car);
+            return NoContent();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteCar(int id)
         {
+            var car = _repo.GetCar(id);
+            if (car == null)
+            {
+                return BadRequest();
+            }
             _repo.DeleteCar(id);
+            return NoContent();
         }
     }
 }
