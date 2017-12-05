@@ -27,7 +27,7 @@ namespace Model
             this.UserId = User.UserId;
             this.Rents = new List<Rent>();
         }
-
+        [Required]
         public long CarId { get; set; }
         [Required]
         public string Manufactor { get; set; }

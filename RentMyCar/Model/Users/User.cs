@@ -41,16 +41,12 @@ namespace Model
         [Required]
         public long UserId { get; set; }
         [Required]
-        [MaxLength(50)]
         public string Login { get; set; }
         [Required]
-        [MaxLength(50)]
         public string Password { get; set; }
         [Required]
-        [EmailAddress]
         public string Mail { get; set; }
         [Required]
-        [Phone]
         public string PhoneNumber { get; set; }
 
         public List<Rent> Rents { get; set; }

@@ -9,6 +9,7 @@ namespace Model
 {
     public class Rent
     {
+        [Required]
         public long RentId { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime StartDate { get; set; }

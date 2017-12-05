@@ -11,6 +11,9 @@ using Model.DB;
 using Model;
 using Model.Repository;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using RentMyCar.Validators;
 
 namespace RentMyCar
 {
@@ -30,13 +33,19 @@ namespace RentMyCar
             options.UseSqlServer(Configuration.GetConnectionString("DbConnection")
             , b => b.MigrationsAssembly("RentMyCar")));
 
+            services.AddMvc().AddJsonOptions(
+                 options => options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddFluentValidation();
+
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRentRepository, RentRepository>();
 
-            services.AddMvc().AddJsonOptions(
-                options => options.SerializerSettings.ReferenceLoopHandling =
-                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddTransient<IValidator<Adress>, AdressValidator>();
+            services.AddTransient<IValidator<Car>, CarValidator>();
+            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<Rent>, RentValidator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +66,6 @@ namespace RentMyCar
             }
 
             app.UseStaticFiles();
-
 
             app.UseMvc(routes =>
             {
