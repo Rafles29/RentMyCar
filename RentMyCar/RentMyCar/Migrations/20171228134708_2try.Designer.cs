@@ -12,9 +12,10 @@ using System;
 namespace RentMyCar.Migrations
 {
     [DbContext(typeof(RentMyCarContext))]
-    partial class RentMyCarContextModelSnapshot : ModelSnapshot
+    [Migration("20171228134708_2try")]
+    partial class _2try
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,16 +27,13 @@ namespace RentMyCar.Migrations
                     b.Property<long>("AdressId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City")
-                        .IsRequired();
+                    b.Property<string>("City");
 
-                    b.Property<string>("PostalCode")
-                        .IsRequired();
+                    b.Property<string>("PostalCode");
 
                     b.Property<long>("RentId");
 
-                    b.Property<string>("StreetName")
-                        .IsRequired();
+                    b.Property<string>("StreetName");
 
                     b.Property<int>("StreetNumber");
 
@@ -52,14 +50,11 @@ namespace RentMyCar.Migrations
                     b.Property<long>("CarId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("AvatarImage")
-                        .IsRequired();
+                    b.Property<byte[]>("AvatarImage");
 
-                    b.Property<string>("Manufactor")
-                        .IsRequired();
+                    b.Property<string>("Manufactor");
 
-                    b.Property<string>("Model")
-                        .IsRequired();
+                    b.Property<string>("Model");
 
                     b.Property<long>("UserId");
 
@@ -171,17 +166,13 @@ namespace RentMyCar.Migrations
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Login")
-                        .IsRequired();
+                    b.Property<string>("Login");
 
-                    b.Property<string>("Mail")
-                        .IsRequired();
+                    b.Property<string>("Mail");
 
-                    b.Property<string>("Password")
-                        .IsRequired();
+                    b.Property<string>("Password");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired();
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("UserId");
 

@@ -20,7 +20,7 @@ namespace Model
         public long CarId { get; set; }
 
         public User User { get; set; }
-        public long UserId { get; set; }
+        //public long UserId { get; set; }
 
         public Adress Adress { get; set; }
     }
