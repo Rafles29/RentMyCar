@@ -11,7 +11,7 @@ using Model.Repository;
 
 namespace RentMyCar.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cars")]
     public class CarController : Controller
     {
         private ICarRepository _repo;
@@ -28,7 +28,7 @@ namespace RentMyCar.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCar")]
         public IActionResult GetCar(int id)
         {
             var car = _repo.GetCar(id);
@@ -55,7 +55,7 @@ namespace RentMyCar.Controllers
 
             var car = _repo.AddCar(newCar);
 
-            return CreatedAtRoute("GetUser", new { id = car.CarId }, car);
+            return CreatedAtRoute("GetCar", new { id = car.CarId }, car);
         }
 
         // PUT api/values/5

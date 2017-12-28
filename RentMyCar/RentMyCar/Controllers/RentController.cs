@@ -10,7 +10,7 @@ using Model.Repository;
 
 namespace RentMyCar.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/rents")]
     public class RentController : Controller
     {
 
@@ -28,7 +28,7 @@ namespace RentMyCar.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetRent")]
         public IActionResult GetRent(int id)
         {
             var rent = _repo.GetRent(id);
@@ -55,7 +55,7 @@ namespace RentMyCar.Controllers
 
             var rent = _repo.AddRent(newRent);
 
-            return CreatedAtRoute("GetUser", new { id = rent.RentId }, rent);
+            return CreatedAtRoute("GetRent", new { id = rent.RentId }, rent);
         }
 
         // PUT api/values/5
@@ -86,6 +86,38 @@ namespace RentMyCar.Controllers
                 return NotFound();
             }
             _repo.DeleteRent(id);
+            return NoContent();
+        }
+
+        //GET adress
+        [HttpGet("{id}/adress")]
+        public IActionResult GetAdress(int id)
+        {
+            var rent = _repo.GetRent(id);
+            if (rent == null)
+            {
+                return NotFound();
+            }
+            return Ok(_repo.GetAdress(id));
+        }
+        [HttpPut("{id}/adress")]
+        public IActionResult PutAdress(int id, [FromBody]Adress adress)
+        {
+            var rent = _repo.GetRent(id);
+            if (rent == null)
+            {
+                return NotFound();
+            }
+
+            if (adress == null)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             return NoContent();
         }
     }

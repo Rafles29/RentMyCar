@@ -12,7 +12,7 @@ using Model.Repository;
 
 namespace RentMyCar.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserController : Controller
     {
 
@@ -22,8 +22,6 @@ namespace RentMyCar.Controllers
         {
             this._repo = userRepository;
         } 
-
-
         // GET: api/values
         [HttpGet]
         public IActionResult GetUsers()

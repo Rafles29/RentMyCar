@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelTests", "ModelTests\ModelTests.csproj", "{F93A1ACB-91BD-4823-8D63-5687E3F4FE13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.DB", "Model.DB\Model.DB.csproj", "{58AB5255-B4F5-41D9-AE4F-BC7217FB7373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelDB", "Model.DB\ModelDB.csproj", "{58AB5255-B4F5-41D9-AE4F-BC7217FB7373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.DBTests", "Model.DBTests\Model.DBTests.csproj", "{42F34A13-F16C-4E59-8822-6BC444C95254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelDBTests", "Model.DBTests\ModelDBTests.csproj", "{42F34A13-F16C-4E59-8822-6BC444C95254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,12 +30,13 @@ namespace RentMyCar
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RentMyCarContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DbConnection")
-            , b => b.MigrationsAssembly("RentMyCar")));
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")
+                , b => b.MigrationsAssembly("RentMyCar")));
 
-            services.AddMvc().AddJsonOptions(
-                 options => options.SerializerSettings.ReferenceLoopHandling =
-                    Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddFluentValidation();
+            services.AddMvc().AddJsonOptions(options =>
+                 options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                    .AddFluentValidation();
 
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -51,7 +52,6 @@ namespace RentMyCar
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
