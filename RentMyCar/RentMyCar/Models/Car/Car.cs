@@ -24,7 +24,6 @@ namespace Model
             this.Price = price;
 
             this.User = User;
-            this.UserId = User.UserId;
             this.Rents = new List<Rent>();
         }
         [Required]
@@ -42,7 +41,6 @@ namespace Model
         public Equipment Equipment { get; set; }
         public Price Price { get; set; }
 
-        public long UserId { get; set; }
         public User User { get; set; }
 
         public List<Rent> Rents { get; set; }

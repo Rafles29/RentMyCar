@@ -9,7 +9,6 @@ namespace RentMyCar.Validators
 {
     public class CarValidator : AbstractValidator<Car>
     {
-        private DateTime date;
         public CarValidator()
         {
             RuleFor(x => x.CarId).NotNull();

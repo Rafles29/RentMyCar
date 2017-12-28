@@ -55,7 +55,7 @@ namespace RentMyCar.Controllers
 
             var user = _repo.AddUser(newUser);
 
-            return CreatedAtRoute("GetUser", new { id = user.UserId }, user);
+            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
         // PUT api/values/5
         [HttpPut("{id}")]

@@ -17,10 +17,8 @@ namespace Model
         public DateTime EndDate { get; set; }
 
         public Car Car { get; set; }
-        public long CarId { get; set; }
 
         public User User { get; set; }
-        //public long UserId { get; set; }
 
         public Adress Adress { get; set; }
     }

@@ -3,51 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Model
 {
-    public class User
+    public class User : IdentityUser
     {
-        public User()
-        {
-            Login = "";
-            Password = "";
-            Mail = "";
-            PhoneNumber = "";
-            Rents = new List<Rent>();
-            Cars = new List<Car>();
-        }
-        public User(string login, string password, string mail, string phoneNumber)
-        {
-            Login = login;
-            Password = password;
-            Mail = mail;
-            PhoneNumber = phoneNumber;
-            Rents = new List<Rent>();
-            Cars = new List<Car>();
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        }
-        public User(long id, string login, string password, string mail, string phoneNumber)
-        {
-            UserId = id;
-            Login = login;
-            Password = password;
-            Mail = mail;
-            PhoneNumber = phoneNumber;
-            Rents = new List<Rent>();
-            Cars = new List<Car>();
-
-        }
-        [Required]
-        public long UserId { get; set; }
-        [Required]
-        public string Login { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required]
-        public string Mail { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
 
         public List<Rent> Rents { get; set; }
 

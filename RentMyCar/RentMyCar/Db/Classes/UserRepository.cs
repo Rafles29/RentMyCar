@@ -32,8 +32,9 @@ namespace Model.DB
 
         public User GetUser(long userID)
         {
-            return _context.Users.Include(u => u.Cars).ThenInclude(c => c.Rents)
-                .Include(u => u.Rents).FirstOrDefault(u => u.UserId == userID);
+            //return _context.Users.Include(u => u.Cars).ThenInclude(c => c.Rents)
+            //  .Include(u => u.Rents).FirstOrDefault(u => u.Id == userID);
+            throw new Exception();
         }
 
         public IEnumerable<User> GetUsers()

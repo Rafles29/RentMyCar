@@ -44,7 +44,6 @@ namespace RentMyCar
 
             services.AddTransient<IValidator<Adress>, AdressValidator>();
             services.AddTransient<IValidator<Car>, CarValidator>();
-            services.AddTransient<IValidator<User>, UserValidator>();
             services.AddTransient<IValidator<Rent>, RentValidator>();
 
         }
