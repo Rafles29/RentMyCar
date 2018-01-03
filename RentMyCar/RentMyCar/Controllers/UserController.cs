@@ -7,6 +7,9 @@ using Model.DB;
 using Model;
 using Model.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using AutoMapper;
+using RentMyCar.ViewModels;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,75 +22,36 @@ namespace RentMyCar.Controllers
     {
 
         private IUserRepository _repo;
+        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, UserManager<User> userManager,
+            IMapper mapper)
         {
             this._repo = userRepository;
+            this._userManager = userManager;
+            this._mapper = mapper;
         } 
+
         // GET: api/values
         [HttpGet]
         public IActionResult GetUsers()
         {
-            return Ok(_repo.GetUsers());
+            var users = _repo.GetUsers();            
+            return Ok(_mapper.Map<IEnumerable<User>, IEnumerable<UserView>>(users));
         }
+
         // GET api/values/5
-        [HttpGet("{id}", Name = "GetUser")]
-        public IActionResult GetUser(int id)
+        [HttpGet("{userName}")]
+        public async Task<IActionResult> GetUser(string userName)
         {
-            var user = _repo.GetUser(id);
+            var user = await _userManager.FindByNameAsync(userName);
             if(user == null)
             {
                 return NotFound();
             }
-            return Ok(user);
-        }
-        // POST api/values
-        [HttpPost]
-        public IActionResult PostRent([FromBody]User newUser)
-        {
-            if(newUser == null)
-            {
-                return BadRequest();
-            }
+            return Ok(_mapper.Map<User, UserView>(user));
 
-            if(!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var user = _repo.AddUser(newUser);
-
-            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
-        }
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public IActionResult PutRent(int id, [FromBody]User user)
-        {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            _repo.UpdateUser(id, user);
-
-            return NoContent();
-        }
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public IActionResult DeleteRent(int id)
-        {
-            var user = _repo.GetUser(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            _repo.DeleteUser(id);
-            return NoContent();
         }
     }
 }

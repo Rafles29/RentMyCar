@@ -22,26 +22,42 @@ namespace Model.DB
             _context.SaveChanges();
             return newCar;
         }
-        public void DeleteCar(long carID)
+        public void DeleteCar(string userName, long carID)
         {
-            var car = _context.Cars.Find(carID);
+            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carID).FirstOrDefault();
+            if (car == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
             _context.Cars.Remove(car);
             _context.SaveChanges();
         }
-        public Car GetCar(long carID)
+        public Car GetCar(long carId)
         {
             return _context.Cars.Include(c => c.Price).Include(c => c.Performance)
                 .Include(c => c.Equipment)
-                .FirstOrDefault(c => c.CarId == carID);
+                .FirstOrDefault(c => c.CarId == carId);
         }
         public IEnumerable<Car> GetCars()
         {
             return _context.Cars.Include(c => c.Price).Include(c => c.Performance)
                 .Include(c => c.Equipment).AsEnumerable<Car>();
         }
-        public void UpdateCar(long carID, Car updatedCar)
+        public IEnumerable<Car> GetCars(string userName)
         {
-            var originalCar = _context.Cars.Find(carID);
+            return _context.Cars.Where(c => c.User.UserName == userName)
+                .Include(c => c.Price)
+                .Include(c => c.Performance)
+                .Include(c => c.Equipment)
+                .AsEnumerable<Car>();
+        }
+        public void UpdateCar(string userName, long carId, Car updatedCar)
+        {
+            var originalCar = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            if (originalCar == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
             _context.Entry(originalCar).CurrentValues.SetValues(updatedCar);
             _context.SaveChanges();
         }
@@ -51,9 +67,13 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Price;
         }
-        public void SetPrice(long carId, Price price)
+        public void SetPrice(string userName, long carId, Price price)
         {
-            var car = _context.Cars.Find(carId);
+            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            if (car == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
             car.Price = price;
             _context.SaveChanges();
         }
@@ -63,9 +83,13 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Equipment;
         }
-        public void SetEquipment(long carId, Equipment eq)
+        public void SetEquipment(string userName, long carId, Equipment eq)
         {
-            var car = _context.Cars.Find(carId);
+            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            if (car == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
             car.Equipment = eq;
             _context.SaveChanges();
         }
@@ -75,11 +99,17 @@ namespace Model.DB
             var car = _context.Cars.Find(carId);
             return car.Performance;
         }
-        public void SetPerformance(long carId, Performance performance)
+        public void SetPerformance(string userName, long carId, Performance performance)
         {
-            var car = _context.Cars.Find(carId);
+            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            if (car == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
             car.Performance = performance;
             _context.SaveChanges();
         }
+
+       
     }
 }

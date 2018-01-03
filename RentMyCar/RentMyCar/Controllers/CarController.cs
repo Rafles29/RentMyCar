@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Model.DB;
 using Model;
 using Model.Repository;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using RentMyCar.ViewModels;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RentMyCar.Controllers
@@ -17,15 +19,23 @@ namespace RentMyCar.Controllers
     public class CarController : Controller
     {
         private ICarRepository _repo;
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManger;
 
-        public CarController(ICarRepository carRepository)
+        public CarController(ICarRepository carRepository, IMapper mapper, UserManager<User> userManger)
         {
             this._repo = carRepository;
+            this._mapper = mapper;
+            this._userManger = userManger;
         }
         // GET: api/values
         [HttpGet]
         public IActionResult GetCars()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return Ok(_repo.GetCars(User.Identity.Name));
+            }
             return Ok(_repo.GetCars());
         }
 
@@ -42,8 +52,9 @@ namespace RentMyCar.Controllers
         }
 
         // POST api/values
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        public IActionResult PostCar([FromBody]Car newCar)
+        public async Task<IActionResult> PostCar([FromBody]CarView newCar)
         {
             if (newCar == null)
             {
@@ -55,12 +66,16 @@ namespace RentMyCar.Controllers
                 return BadRequest();
             }
 
-            var car = _repo.AddCar(newCar);
+            var car = _mapper.Map<CarView, Car>(newCar);
+            var user = await _userManger.FindByNameAsync(User.Identity.Name);
+            car.User = user;
 
-            return CreatedAtRoute("GetCar", new { id = car.CarId }, car);
+            var addedCar = _repo.AddCar(car);
+            return CreatedAtRoute("GetRent", new { id = addedCar.CarId }, addedCar);
         }
 
         // PUT api/values/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public IActionResult PutCar(int id, [FromBody]Car car)
         {
@@ -74,11 +89,12 @@ namespace RentMyCar.Controllers
                 return BadRequest();
             }
 
-            _repo.UpdateCar(id, car);
+            _repo.UpdateCar(User.Identity.Name, id, car);
             return NoContent();
         }
 
         // DELETE api/values/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {
@@ -87,7 +103,7 @@ namespace RentMyCar.Controllers
             {
                 return BadRequest();
             }
-            _repo.DeleteCar(id);
+            _repo.DeleteCar(User.Identity.Name, id);
             return NoContent();
         }
     }

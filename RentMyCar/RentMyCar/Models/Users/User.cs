@@ -14,7 +14,6 @@ namespace Model
 
 
         public List<Rent> Rents { get; set; }
-
         public List<Car> Cars { get; set; }
 
     }

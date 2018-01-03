@@ -7,12 +7,11 @@ namespace Model.Repository
     public interface IRentRepository
     {
         Rent AddRent(Rent newRent);
-        IEnumerable<Rent> GetRents();
-        Rent GetRent(long rentID);
-        void UpdateRent(long rentID, Rent updatedRent);
-        void DeleteRent(long rentID);
+        IEnumerable<Rent> GetRents(string userName);
+        Rent GetRent(string userName, long rentID);
+        void DeleteRent(string userName, long rentID);
 
-        Adress GetAdress(long rentID);
-        void SetAdress(long rentID, Adress adress);
+        Adress GetAdress(string userName, long rentID);
+        void SetAdress(string userName, long rentID, Adress adress);
     }
 }

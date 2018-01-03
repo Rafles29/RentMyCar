@@ -6,10 +6,6 @@ namespace Model.Repository
 {
     public interface IUserRepository
     {
-        User AddUser(User newUser);
         IEnumerable<User> GetUsers();
-        User GetUser(long userID);
-        void UpdateUser(long userID, User updatedUser);
-        void DeleteUser(long userID);
     }
 }

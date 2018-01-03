@@ -16,6 +16,7 @@ namespace RentMyCar
         
         public static void Main(string[] args)
         {
+            //defining logger
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
@@ -33,7 +34,7 @@ namespace RentMyCar
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseNLog()
+                .UseNLog() //using logger
                 .Build();
     }
 }

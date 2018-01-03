@@ -18,18 +18,21 @@ using Microsoft.Extensions.Logging;
 
 namespace RentMyCar.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/account")]
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration config)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager,
+            IConfiguration config, ILogger<AccountController> logger)
         {
-            _signInManager = signInManager;
+            this._signInManager = signInManager;
             this._userManager = userManager;
             this._config = config;
+            this._logger = logger;
         }
 
         // POST: /Account/Register
@@ -50,7 +53,7 @@ namespace RentMyCar.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    //_logger.LogInformation(3, "User created a new account with password.");
+                    _logger.LogInformation(3, "User created a new account with password.");
                     return Created("", model);
                 }
             }
@@ -91,7 +94,7 @@ namespace RentMyCar.Controllers
                             token = new JwtSecurityTokenHandler().WriteToken(token),
                             expiration = token.ValidTo
                         };
-                        //_logger.LogInformation(3, "Token created");
+                        _logger.LogInformation(3, "Token created");
                         return Created("", results);
                     }
                 }

@@ -8,6 +8,9 @@ using Model;
 using Model.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AutoMapper;
+using RentMyCar.ViewModels;
+using Microsoft.AspNetCore.Identity;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RentMyCar.Controllers
@@ -18,33 +21,55 @@ namespace RentMyCar.Controllers
     {
 
         private IRentRepository _repo;
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManger;
 
-        public RentController(IRentRepository rentRepository)
+        public RentController(IRentRepository rentRepository, IMapper mapper, UserManager<User> userManger)
         {
             this._repo = rentRepository;
+            this._mapper = mapper;
+            this._userManger = userManger;
         }
         // GET: api/values
         [HttpGet]
         public IActionResult GetRents()
         {
-            return Ok(_repo.GetRents());
+            try
+            {
+                var userName = User.Identity.Name;
+                var rents = _repo.GetRents(userName);
+                return Ok(_mapper.Map<IEnumerable<Rent>, IEnumerable<RentView>>(rents));
+            }
+            catch (Exception)
+            {
+                return BadRequest("Failed to get Rents");
+            }
+
         }
 
         // GET api/values/5
         [HttpGet("{id}", Name = "GetRent")]
         public IActionResult GetRent(int id)
         {
-            var rent = _repo.GetRent(id);
-            if(rent == null)
+            try
             {
-                return NotFound();
+                var userName = User.Identity.Name;
+                var rent = _repo.GetRent(userName, id);
+                if (rent == null)
+                {
+                    return NotFound();
+                }
+                return Ok(rent);
             }
-            return Ok(rent);
+            catch (Exception)
+            {
+                return BadRequest("Failed to get Rent");
+            }
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult PostRent([FromBody]Rent newRent)
+        public async Task<IActionResult> PostRent([FromBody]RentView newRent)
         {
             if (newRent == null)
             {
@@ -56,57 +81,46 @@ namespace RentMyCar.Controllers
                 return BadRequest();
             }
 
-            var rent = _repo.AddRent(newRent);
+            var rent = _mapper.Map<RentView, Rent>(newRent);
+            var user = await _userManger.FindByNameAsync(User.Identity.Name);
+            rent.User = user;
 
-            return CreatedAtRoute("GetRent", new { id = rent.RentId }, rent);
-        }
+            var addedRent = _repo.AddRent(rent);
+            return CreatedAtRoute("GetRent", new { id = addedRent.RentId }, addedRent);
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public IActionResult PutRent(int id, [FromBody]Rent rent)
-        {
-            if (rent == null)
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            _repo.UpdateRent(id, rent);
-
-            return NoContent();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public IActionResult DeleteRent(int id)
         {
-            var rent = _repo.GetRent(id);
+            var userName = User.Identity.Name;
+            var rent = _repo.GetRent(userName, id);
             if (rent == null)
             {
                 return NotFound();
             }
-            _repo.DeleteRent(id);
+            _repo.DeleteRent(userName, id);
             return NoContent();
         }
 
         //GET adress
         [HttpGet("{id}/adress")]
-        public IActionResult GetAdress(int id)
+        public IActionResult GetAdress(string userName, int id)
         {
-            var rent = _repo.GetRent(id);
+            var rent = _repo.GetRent(userName, id);
             if (rent == null)
             {
                 return NotFound();
             }
-            return Ok(_repo.GetAdress(id));
+            return Ok(_repo.GetAdress(userName, id));
         }
         [HttpPut("{id}/adress")]
         public IActionResult PutAdress(int id, [FromBody]Adress adress)
         {
-            var rent = _repo.GetRent(id);
+
+            var userName = User.Identity.Name;
+            var rent = _repo.GetRent(userName, id);
             if (rent == null)
             {
                 return NotFound();
@@ -120,7 +134,7 @@ namespace RentMyCar.Controllers
             {
                 return BadRequest();
             }
-
+            _repo.SetAdress(userName, id, adress);
             return NoContent();
         }
     }

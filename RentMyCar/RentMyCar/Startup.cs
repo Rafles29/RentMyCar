@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -17,6 +14,7 @@ using RentMyCar.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
 
 namespace RentMyCar
 {
@@ -32,7 +30,7 @@ namespace RentMyCar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // seting identity
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 // Password settings
@@ -52,6 +50,7 @@ namespace RentMyCar
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<RentMyCarContext>();
 
+            //defing authentication methods and schema
             services.AddAuthentication().AddJwtBearer(cfg =>
             {
                 cfg.TokenValidationParameters = new TokenValidationParameters()
@@ -63,15 +62,21 @@ namespace RentMyCar
             }
             );
 
+            //adding automapper to project
+            services.AddAutoMapper();
+
+            //adding connection to db
             services.AddDbContext<RentMyCarContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")
                 , b => b.MigrationsAssembly("RentMyCar")));
 
+            //adding mvc and validatons
             services.AddMvc().AddJsonOptions(options =>
                  options.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                     .AddFluentValidation();
 
+            //adding repositories and validations
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRentRepository, RentRepository>();
@@ -85,6 +90,7 @@ namespace RentMyCar
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //configuring behavior for specific stages
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,16 +104,21 @@ namespace RentMyCar
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            //enable use of static files in wwwroot folder
             app.UseStaticFiles();
 
+            //using authentications
             app.UseAuthentication();
 
+            //creating routes
             app.UseMvc(routes =>
             {
+                //creating deafult route
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
+                //creating route for Angular Client
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });

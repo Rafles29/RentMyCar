@@ -23,38 +23,44 @@ namespace Model.DB
             return newRent;
         }
 
-        public void DeleteRent(long rentID)
+        public void DeleteRent(string userName, long rentID)
         {
-            var rent = _context.Rents.Find(rentID);
+            var rent = _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+                .FirstOrDefault();
             _context.Remove(rent);
             _context.SaveChanges();
         }
 
-        public Rent GetRent(long rentID)
+        public Rent GetRent(string userName, long rentID)
         {
-            return _context.Rents.Include(r => r.Car).Include(r => r.Adress).
-                Include(r => r.User).FirstOrDefault(r => r.RentId == rentID);
+            return _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+                .Include(r => r.Car)
+                .Include(r => r.Adress)
+                .Include(r => r.User)
+                .FirstOrDefault();
         }
 
-        public IEnumerable<Rent> GetRents()
+        public IEnumerable<Rent> GetRents(string userName)
         {
-            return _context.Rents.Include(r => r.Car).Include(r => r.Adress).
-                Include(r => r.User).ToList();
+            return _context.Rents.Where(r => r.User.UserName == userName)
+                .Include(r => r.Car)
+                .Include(r => r.Adress)
+                .Include(r => r.User)
+                .ToList();
+        }
+        public Adress GetAdress(string userName, long rentID)
+        {
+            return _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+                .Include(r => r.Car)
+                .Include(r => r.Adress)
+                .Include(r => r.User)
+                .FirstOrDefault().Adress;
         }
 
-        public void UpdateRent(long rentID, Rent updatedRent)
+        public void SetAdress(string userName, long rentID, Adress adress)
         {
-            throw new NotImplementedException();
-        }
-
-        public Adress GetAdress(long rentID)
-        {
-            return _context.Rents.Find(rentID).Adress;
-        }
-
-        public void SetAdress(long rentID, Adress adress)
-        {
-            var rent = _context.Rents.Find(rentID);
+            var rent = _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+                .FirstOrDefault();
             rent.Adress = adress;
             _context.SaveChanges();
         }
