@@ -7,5 +7,6 @@ namespace Model.Repository
     public interface IUserRepository
     {
         IEnumerable<User> GetUsers();
+        User GetUser(string userName);
     }
 }

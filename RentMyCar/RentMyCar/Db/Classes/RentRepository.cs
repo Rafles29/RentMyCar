@@ -25,7 +25,7 @@ namespace Model.DB
 
         public void DeleteRent(string userName, long rentID)
         {
-            var rent = _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+            var rent = _context.Rents.Include(r => r.User).Where(r => r.User.UserName == userName && r.RentId == rentID)
                 .FirstOrDefault();
             _context.Remove(rent);
             _context.SaveChanges();
@@ -59,7 +59,7 @@ namespace Model.DB
 
         public void SetAdress(string userName, long rentID, Adress adress)
         {
-            var rent = _context.Rents.Where(r => r.User.UserName == userName && r.RentId == rentID)
+            var rent = _context.Rents.Include(r => r.User).Where(r => r.User.UserName == userName && r.RentId == rentID)
                 .FirstOrDefault();
             rent.Adress = adress;
             _context.SaveChanges();

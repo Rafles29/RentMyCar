@@ -16,9 +16,10 @@ namespace Model.DB
         {
             _context = context;
         }
-        public Car AddCar(Car newCar)
+        public Car AddCar(string userName, Car newCar)
         {
-            _context.Cars.Add(newCar);
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            user.Cars.Add(newCar);
             _context.SaveChanges();
             return newCar;
         }
@@ -35,13 +36,13 @@ namespace Model.DB
         public Car GetCar(long carId)
         {
             return _context.Cars.Include(c => c.Price).Include(c => c.Performance)
-                .Include(c => c.Equipment)
+                .Include(c => c.Equipment).Include(c => c.User)
                 .FirstOrDefault(c => c.CarId == carId);
         }
         public IEnumerable<Car> GetCars()
         {
             return _context.Cars.Include(c => c.Price).Include(c => c.Performance)
-                .Include(c => c.Equipment).AsEnumerable<Car>();
+                .Include(c => c.Equipment).Include(c => c.User).AsEnumerable<Car>();
         }
         public IEnumerable<Car> GetCars(string userName)
         {
@@ -49,11 +50,12 @@ namespace Model.DB
                 .Include(c => c.Price)
                 .Include(c => c.Performance)
                 .Include(c => c.Equipment)
+                .Include(c => c.User)
                 .AsEnumerable<Car>();
         }
         public void UpdateCar(string userName, long carId, Car updatedCar)
         {
-            var originalCar = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            var originalCar = _context.Cars.Include(c => c.User).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
             if (originalCar == null)
             {
                 throw new UnauthorizedAccessException();
@@ -69,7 +71,7 @@ namespace Model.DB
         }
         public void SetPrice(string userName, long carId, Price price)
         {
-            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            var car = _context.Cars.Include(c => c.User).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
             if (car == null)
             {
                 throw new UnauthorizedAccessException();
@@ -85,7 +87,7 @@ namespace Model.DB
         }
         public void SetEquipment(string userName, long carId, Equipment eq)
         {
-            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            var car = _context.Cars.Include(c => c.User).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
             if (car == null)
             {
                 throw new UnauthorizedAccessException();
@@ -101,7 +103,7 @@ namespace Model.DB
         }
         public void SetPerformance(string userName, long carId, Performance performance)
         {
-            var car = _context.Cars.Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            var car = _context.Cars.Include(c => c.User).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
             if (car == null)
             {
                 throw new UnauthorizedAccessException();

@@ -6,7 +6,7 @@ namespace Model.Repository
 {
     public interface ICarRepository
     {
-        Car AddCar(Car newCar);
+        Car AddCar(string userName, Car newCar);
         IEnumerable<Car> GetCars();
         IEnumerable<Car> GetCars(string userName);
         Car GetCar(long carID);

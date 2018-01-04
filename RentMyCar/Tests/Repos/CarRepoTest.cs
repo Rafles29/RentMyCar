@@ -3,6 +3,7 @@ using Model.DB;
 using Model;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Model.DBTests
 {
@@ -10,6 +11,7 @@ namespace Model.DBTests
     public class CarRepoTest
     {
         private DbContextOptions<RentMyCarContext> options;
+        private User _user;
 
         [TestInitialize]
         public void Init()
@@ -17,30 +19,50 @@ namespace Model.DBTests
             options = new DbContextOptionsBuilder<RentMyCarContext>()
             .UseInMemoryDatabase(databaseName: "Database")
             .Options;
+
+            this._user = new User()
+            {
+                Email = "jp@gmail.com",
+                UserName = "jp",
+                FirstName = "Janusz",
+                LastName = "Pawlak",
+                Cars = new List<Car>(),
+                Rents = new List<Rent>()
+            };
+
+            using (var context = new RentMyCarContext(options))
+            {
+                context.Users.Add(this._user);
+                context.SaveChanges();
+            }
         }
         [TestMethod]
         public void AddCarToDb()
         {
+
 
             Car testCar = new Car();
             testCar.Manufactor = "Ferrari";
             testCar.Model = "458";
             testCar.Price = new Price(5000);
 
+
             using (var context = new RentMyCarContext(options))
             {
+                var test = context.Users.Where(u => u.UserName == this._user.UserName).FirstOrDefault();
                 var service = new CarRepository(context);
-                service.AddCar(testCar);
+                service.AddCar(this._user.UserName, testCar);
             }
 
             using (var context = new RentMyCarContext(options))
             {
+
                 Assert.AreEqual(1, context.Cars.Count());
                 Assert.AreEqual(testCar.Manufactor, context.Cars.Single().Manufactor);
                 Assert.AreEqual(testCar.Model, context.Cars.Single().Model);
                 Assert.AreEqual(1, context.Cars.Single().CarId);
-                Assert.AreEqual(5000, context.Cars.Include(c => c.Price).Include(c => c.Performance)
-                .Include(c => c.Equipment).Single().Price.ShortTermPrice);
+                Assert.AreEqual(5000, context.Cars.Include(c => c.Price).Single().Price.ShortTermPrice);
+                Assert.AreEqual(this._user.UserName, context.Cars.Include(c => c.User).FirstOrDefault(c => c.CarId == 1).User.UserName);
             }
         }
         [TestMethod]
@@ -53,7 +75,7 @@ namespace Model.DBTests
                 testCar2.Manufactor = "Ferrari";
                 testCar2.Model = "430";
 
-                context.Cars.Add(testCar2);
+                context.Users.Where(u => u.UserName == this._user.UserName).FirstOrDefault().Cars.Add(testCar2);
                 context.SaveChanges();
             }
 
@@ -94,9 +116,10 @@ namespace Model.DBTests
                 testCar2.Manufactor = "Lamborghini";
                 testCar2.Model = "Huracane";
                 testCar2.CarId = cid;
+                testCar2.User = this._user;
 
                 var service = new CarRepository(context);
-                service.UpdateCar(cid, testCar2);
+                service.UpdateCar(this._user.UserName, cid, testCar2);
 
                 var after = context.Cars.Find(cid);
                 Assert.AreEqual(after.CarId, cid);
@@ -127,7 +150,7 @@ namespace Model.DBTests
             using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
-                service.DeleteCar(1);
+                service.DeleteCar(this._user.UserName, 1);
             }
             using (var context = new RentMyCarContext(options))
             {
@@ -143,8 +166,8 @@ namespace Model.DBTests
             using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
-                service.SetPrice(2, new Price(2500));
-                service.SetPrice(2, new Price(3500));
+                service.SetPrice(this._user.UserName, 2, new Price(2500));
+                service.SetPrice(this._user.UserName, 2, new Price(3500));
             }
             using (var context = new RentMyCarContext(options))
             {

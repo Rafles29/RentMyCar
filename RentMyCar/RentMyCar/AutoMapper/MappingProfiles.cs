@@ -25,6 +25,8 @@ namespace RentMyCar.AutoMapper
             CreateMap<Car, CarView>().ReverseMap();
 
             CreateMap<Equipment, PriceView>().ReverseMap();
+
+            CreateMap<RegisterViewModel, User>().ReverseMap();
         }        
     }
 }

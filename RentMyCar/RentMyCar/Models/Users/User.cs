@@ -9,6 +9,12 @@ namespace Model
 {
     public class User : IdentityUser
     {
+
+        public User()
+        {
+            Rents = new List<Rent>();
+            Cars = new List<Car>();
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

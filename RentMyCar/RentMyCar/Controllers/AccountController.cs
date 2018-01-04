@@ -13,6 +13,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,14 +26,16 @@ namespace RentMyCar.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
         private readonly ILogger<AccountController> _logger;
+        private readonly IMapper _mapper;
 
         public AccountController(SignInManager<User> signInManager, UserManager<User> userManager,
-            IConfiguration config, ILogger<AccountController> logger)
+            IConfiguration config, ILogger<AccountController> logger, IMapper mapper)
         {
             this._signInManager = signInManager;
             this._userManager = userManager;
             this._config = config;
             this._logger = logger;
+            this._mapper = mapper;
         }
 
         // POST: /Account/Register
@@ -42,8 +45,7 @@ namespace RentMyCar.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, Email = model.Email,
-                    FirstName = model.FirstName, LastName = model.LastName};
+                var user = _mapper.Map<RegisterViewModel, User>(model);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

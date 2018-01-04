@@ -68,9 +68,11 @@ namespace RentMyCar.Controllers
 
             var car = _mapper.Map<CarView, Car>(newCar);
             var user = await _userManger.FindByNameAsync(User.Identity.Name);
-            car.User = user;
-
-            var addedCar = _repo.AddCar(car);
+            if(user == null)
+            {
+                return BadRequest();
+            }
+            var addedCar = _repo.AddCar(User.Identity.Name, car);
             return CreatedAtRoute("GetRent", new { id = addedCar.CarId }, addedCar);
         }
 
