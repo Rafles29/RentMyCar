@@ -14,7 +14,6 @@ using RentMyCar.ViewModels;
 
 namespace RentMyCar.Controllers
 {
-    [AllowAnonymous]
     [Route("api/cars")]
     public class CarController : Controller
     {
@@ -34,9 +33,11 @@ namespace RentMyCar.Controllers
         {
             if(User.Identity.IsAuthenticated)
             {
-                return Ok(_repo.GetCars(User.Identity.Name));
+                var cars = _repo.GetCars(User.Identity.Name);
+                return Ok(_mapper.Map<IEnumerable<Car>, IEnumerable<CarView>>(cars));
             }
-            return Ok(_repo.GetCars());
+            var cars2 = _repo.GetCars();
+            return Ok(_mapper.Map<IEnumerable<Car>, IEnumerable<CarView>>(cars2));
         }
 
         // GET api/values/5
@@ -44,11 +45,13 @@ namespace RentMyCar.Controllers
         public IActionResult GetCar(int id)
         {
             var car = _repo.GetCar(id);
-            if(car == null)
+
+            if (car == null)
             {
                 return BadRequest();
             }
-            return Ok(car);
+            var mappedCar = _mapper.Map<Car, CarView>(car);
+            return Ok(mappedCar);
         }
 
         // POST api/values
@@ -67,6 +70,7 @@ namespace RentMyCar.Controllers
             }
 
             var car = _mapper.Map<CarView, Car>(newCar);
+            Console.WriteLine(User.Identity.Name);
             var user = await _userManger.FindByNameAsync(User.Identity.Name);
             if(user == null)
             {

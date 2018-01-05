@@ -27,5 +27,6 @@ namespace Model.DB
             return _context.Users.Include(u => u.Cars).ThenInclude(c => c.Rents)
                 .Include(u => u.Rents).Where(u => u.UserName == userName).FirstOrDefault();
         }
+
     }
 }

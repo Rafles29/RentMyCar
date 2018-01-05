@@ -56,7 +56,7 @@ namespace Model.DBTests
 
             using (var context = new RentMyCarContext(options))
             {
-
+                Assert.AreEqual("jp", context.Cars.Include(c => c.User).Single().User.UserName);
                 Assert.AreEqual(1, context.Cars.Count());
                 Assert.AreEqual(testCar.Manufactor, context.Cars.Single().Manufactor);
                 Assert.AreEqual(testCar.Model, context.Cars.Single().Model);
@@ -64,6 +64,7 @@ namespace Model.DBTests
                 Assert.AreEqual(5000, context.Cars.Include(c => c.Price).Single().Price.ShortTermPrice);
                 Assert.AreEqual(this._user.UserName, context.Cars.Include(c => c.User).FirstOrDefault(c => c.CarId == 1).User.UserName);
             }
+
         }
         [TestMethod]
         public void FindCar()
@@ -87,6 +88,7 @@ namespace Model.DBTests
                 Assert.AreEqual(result1.CarId, 1);
                 Assert.AreEqual(result1.Manufactor, "Ferrari");
                 Assert.AreEqual(result1.Model, "458");
+                Assert.AreEqual("jp", context.Cars.Include(c => c.User).FirstOrDefault().User.UserName);
             }
             using (var context = new RentMyCarContext(options))
             {
@@ -161,12 +163,11 @@ namespace Model.DBTests
             }
         }
         [TestMethod]
-        public void UpdateCarParametrs()
+        public void UpdatePrice()
         {
             using (var context = new RentMyCarContext(options))
             {
                 var service = new CarRepository(context);
-                service.SetPrice(this._user.UserName, 2, new Price(2500));
                 service.SetPrice(this._user.UserName, 2, new Price(3500));
             }
             using (var context = new RentMyCarContext(options))
@@ -174,6 +175,107 @@ namespace Model.DBTests
                 Assert.AreEqual(3500, context.Cars.Include(c => c.Price).Include(c => c.Performance)
                 .Include(c => c.Equipment).Single().Price.ShortTermPrice);
             }
+        }
+
+        [TestMethod]
+        public void GetPrice()
+        {
+            Price pr;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new CarRepository(context);
+                pr = service.GetPrice(2);
+            }
+            Assert.AreEqual(3500, pr.ShortTermPrice);
+        }
+        [TestMethod]
+        public void UpdatePerformance()
+        {
+            Performance pr = new Performance()
+            {
+                ZeroTo100 = 2.9,
+                HorsePower = 610,
+                MaxSpeed = 315.2,
+
+            };
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new CarRepository(context);
+                service.SetPerformance(this._user.UserName, 2, pr);
+            }
+            using (var context = new RentMyCarContext(options))
+            {
+                Assert.AreEqual(2.9, context.Cars.Include(c => c.Performance)
+                    .Single().Performance.ZeroTo100);
+                Assert.AreEqual(610, context.Cars.Include(c => c.Performance)
+                    .Single().Performance.HorsePower);
+                Assert.AreEqual(315.2, context.Cars.Include(c => c.Performance)
+                    .Single().Performance.MaxSpeed);
+            }
+        }
+        [TestMethod]
+        public void GetPerformance()
+        {
+            Performance pr;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new CarRepository(context);
+                pr = service.GetPerformance(2);
+            }
+            Assert.AreEqual(2.9, pr.ZeroTo100);
+            Assert.AreEqual(610, pr.HorsePower);
+            Assert.AreEqual(315.2, pr.MaxSpeed);
+        }
+
+        [TestMethod]
+        public void UpdateEquipment()
+        {
+            Equipment eq = new Equipment()
+            {
+                AC = AC.auto,
+                Lift = true,
+                Seats = 2,
+                Gearbox = Gearbox.auto,
+                BodyType = BodyType.coupe,
+                Colour = Colour.yellow
+
+            };
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new CarRepository(context);
+                service.SetEquipment(this._user.UserName, 2, eq);
+            }
+            using (var context = new RentMyCarContext(options))
+            {
+                Assert.AreEqual(AC.auto, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.AC);
+                Assert.AreEqual(true, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.Lift);
+                Assert.AreEqual(2, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.Seats);
+                Assert.AreEqual(Gearbox.auto, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.Gearbox);
+                Assert.AreEqual(BodyType.coupe, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.BodyType);
+                Assert.AreEqual(Colour.yellow, context.Cars.Include(c => c.Equipment)
+                    .Single().Equipment.Colour);
+            }
+        }
+        [TestMethod]
+        public void GetEquipment()
+        {
+            Equipment eq;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new CarRepository(context);
+                eq = service.GetEquipment(2);
+            }
+            Assert.AreEqual(AC.auto,eq.AC);
+            Assert.AreEqual(true, eq.Lift);
+            Assert.AreEqual(2, eq.Seats);
+            Assert.AreEqual(Gearbox.auto, eq.Gearbox);
+            Assert.AreEqual(BodyType.coupe, eq.BodyType);
+            Assert.AreEqual(Colour.yellow, eq.Colour);
         }
     }
 }

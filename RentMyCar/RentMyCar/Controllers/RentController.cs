@@ -69,7 +69,7 @@ namespace RentMyCar.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> PostRent([FromBody]RentView newRent)
+        public IActionResult PostRent([FromBody]RentView newRent)
         {
             if (newRent == null)
             {
@@ -82,10 +82,8 @@ namespace RentMyCar.Controllers
             }
 
             var rent = _mapper.Map<RentView, Rent>(newRent);
-            var user = await _userManger.FindByNameAsync(User.Identity.Name);
-            rent.User = user;
 
-            var addedRent = _repo.AddRent(rent);
+            var addedRent = _repo.AddRent(User.Identity.Name, rent);
             return CreatedAtRoute("GetRent", new { id = addedRent.RentId }, addedRent);
 
         }

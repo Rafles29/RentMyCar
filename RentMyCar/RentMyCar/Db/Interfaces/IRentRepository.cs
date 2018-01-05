@@ -6,7 +6,7 @@ namespace Model.Repository
 {
     public interface IRentRepository
     {
-        Rent AddRent(Rent newRent);
+        Rent AddRent(string userName, Rent newRent);
         IEnumerable<Rent> GetRents(string userName);
         Rent GetRent(string userName, long rentID);
         void DeleteRent(string userName, long rentID);

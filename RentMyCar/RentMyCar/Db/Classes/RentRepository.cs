@@ -16,16 +16,26 @@ namespace Model.DB
         {
             _context = context;
         }
-        public Rent AddRent(Rent newRent)
+        public Rent AddRent(string userName, Rent newRent)
         {
-            _context.Rents.Add(newRent);
+            var user = _context.Users.Include(u => u.Rents).Where(u => u.UserName == userName).FirstOrDefault();
+            var car = _context.Cars.Where(c => c.CarId == newRent.CarId).FirstOrDefault();
+            if(car == null)
+            {
+                throw new ArgumentException();
+            }
+            user.Rents.Add(newRent);
             _context.SaveChanges();
             return newRent;
         }
 
         public void DeleteRent(string userName, long rentID)
         {
-            var rent = _context.Rents.Include(r => r.User).Where(r => r.User.UserName == userName && r.RentId == rentID)
+            var rent = _context.Rents
+                .Include(r => r.User)
+                .Include(r => r.Car)
+                .Include(r => r.Adress)
+                .Where(r => r.User.UserName == userName && r.RentId == rentID)
                 .FirstOrDefault();
             _context.Remove(rent);
             _context.SaveChanges();
@@ -59,7 +69,7 @@ namespace Model.DB
 
         public void SetAdress(string userName, long rentID, Adress adress)
         {
-            var rent = _context.Rents.Include(r => r.User).Where(r => r.User.UserName == userName && r.RentId == rentID)
+            var rent = _context.Rents.Include(r => r.User).Include(r => r.Adress).Where(r => r.User.UserName == userName && r.RentId == rentID)
                 .FirstOrDefault();
             rent.Adress = adress;
             _context.SaveChanges();
