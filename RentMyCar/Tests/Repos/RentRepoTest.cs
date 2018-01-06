@@ -35,7 +35,6 @@ namespace Tests
                 Cars = new List<Car>(),
                 Rents = new List<Rent>()
             };
-
             this._ferrari = new Car
             {
                 Manufactor = "Ferrari",
@@ -69,7 +68,6 @@ namespace Tests
                 Cars = new List<Car>(),
                 Rents = new List<Rent>()
             };
-
             this._lambo = new Car
             {
                 Manufactor = "Lamborghini",
@@ -93,11 +91,7 @@ namespace Tests
 
                 }
             };
-
         }
-
-
-
         [TestMethod]
         public void AddRent()
         {
@@ -148,10 +142,61 @@ namespace Tests
             using (var context = new RentMyCarContext(options))
             {
                 Assert.AreEqual(2, context.Rents.Count());
-                var test = context.Rents.ToList();
-                var test2 = context.Users.ToList();
-                var test3 = context.Cars.ToList();
+                Assert.AreEqual(_lambo.Model, context.Rents.Include(r => r.Car).FirstOrDefault().Car.Model);
+                Assert.AreEqual(_userFr.UserName, context.Rents.Include(r => r.User).FirstOrDefault().User.UserName);
             }
+        }
+        [TestMethod]
+        public void GetRents()
+        {
+            IEnumerable<Rent> rentsFr;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new RentRepository(context);
+                rentsFr = service.GetRents(_userFr.UserName);
+            }
+
+            Assert.AreEqual(1, rentsFr.Count());
+            Assert.AreEqual(_lambo.Model, rentsFr.FirstOrDefault().Car.Model);
+        }
+        public void GetRent()
+        {
+            Rent rent;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new RentRepository(context);
+                rent = service.GetRent(_userLb.UserName, 2);
+            }
+            Assert.AreEqual(_ferrari.Model, rent.Car.Model);
+            Assert.AreEqual("02-787", rent.Adress.PostalCode);
+        }
+        public void GetAdress()
+        {
+            Adress adress;
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new RentRepository(context);
+                adress = service.GetAdress(_userLb.UserName, 2);
+            }
+            Assert.AreEqual("Warszawa", adress.City);
+            Assert.AreEqual("02-787", adress.PostalCode);
+        }
+        public void SetAdress()
+        {
+            Adress adress = new Adress()
+            {
+                PostalCode = "02-785",
+                StreetName = "Zlota",
+                StreetNumber = 52,
+                City = "Warszawa"
+            };
+            using (var context = new RentMyCarContext(options))
+            {
+                var service = new RentRepository(context);
+                adress = service.GetAdress(_userLb.UserName, 2);
+            }
+            Assert.AreEqual("Warszawa", adress.City);
+            Assert.AreEqual("02-785", adress.PostalCode);
         }
     }
 }
