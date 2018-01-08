@@ -69,7 +69,7 @@ namespace RentMyCar.Controllers
 
         // POST api/values
         [HttpPost]
-        public IActionResult PostRent([FromBody]RentView newRent)
+        public IActionResult PostRent([FromBody]Rent newRent)
         {
             if (newRent == null)
             {
@@ -80,10 +80,13 @@ namespace RentMyCar.Controllers
             {
                 return BadRequest();
             }
+            if(newRent.StartDate == null)
+            {
+                newRent.StartDate = DateTime.Now;
+                newRent.EndDate = DateTime.Now.AddDays(1);
+            }
 
-            var rent = _mapper.Map<RentView, Rent>(newRent);
-
-            var addedRent = _repo.AddRent(User.Identity.Name, rent);
+            var addedRent = _repo.AddRent(User.Identity.Name, newRent);
             return CreatedAtRoute("GetRent", new { id = addedRent.RentId }, addedRent);
 
         }

@@ -19,12 +19,14 @@ namespace Model.DB
         public Rent AddRent(string userName, Rent newRent)
         {
             var user = _context.Users.Include(u => u.Rents).Where(u => u.UserName == userName).FirstOrDefault();
+            newRent.User = user;
             var car = _context.Cars.Where(c => c.CarId == newRent.CarId).FirstOrDefault();
+            newRent.Car = car;
             if(car == null)
             {
                 throw new ArgumentException();
             }
-            user.Rents.Add(newRent);
+            _context.Rents.Add(newRent);
             _context.SaveChanges();
             return newRent;
         }

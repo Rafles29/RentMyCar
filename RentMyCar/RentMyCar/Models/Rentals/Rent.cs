@@ -9,11 +9,9 @@ namespace Model
 {
     public class Rent
     {
-        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long RentId { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime StartDate { get; set; }
-        [Required]
         public DateTime EndDate { get; set; }
 
         public Car Car { get; set; }

@@ -12,9 +12,10 @@ using System;
 namespace RentMyCar.Migrations
 {
     [DbContext(typeof(RentMyCarContext))]
-    partial class RentMyCarContextModelSnapshot : ModelSnapshot
+    [Migration("20180107235703_patch2")]
+    partial class patch2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

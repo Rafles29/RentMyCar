@@ -12,9 +12,10 @@ using System;
 namespace RentMyCar.Migrations
 {
     [DbContext(typeof(RentMyCarContext))]
-    partial class RentMyCarContextModelSnapshot : ModelSnapshot
+    [Migration("20180107235430_patch")]
+    partial class patch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,7 +261,8 @@ namespace RentMyCar.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime>("StartDate")
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("UserId");
 

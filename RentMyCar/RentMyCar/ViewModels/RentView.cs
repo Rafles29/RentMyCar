@@ -13,6 +13,7 @@ namespace RentMyCar.ViewModels
         public DateTime EndDate { get; set; }
 
         public CarView Car { get; set; }
+        public long CarId { get; set; }
 
         public UserView User { get; set; }
 
