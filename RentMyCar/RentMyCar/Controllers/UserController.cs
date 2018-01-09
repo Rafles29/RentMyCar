@@ -43,9 +43,9 @@ namespace RentMyCar.Controllers
 
         // GET api/values/5
         [HttpGet("{userName}")]
-        public async Task<IActionResult> GetUser(string userName)
+        public IActionResult GetUser(string userName)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user =  _repo.GetUser(userName);
             if(user == null)
             {
                 return NotFound();

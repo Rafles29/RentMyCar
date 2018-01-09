@@ -18,7 +18,7 @@ namespace RentMyCar.ViewModels
         public EquipmentView Equipment { get; set; }
         public PriceView Price { get; set; }
 
-        public UserView User { get; set; }
+        public String UserName { get; set; }
 
         public List<RentView> Rents { get; set; }
     }
