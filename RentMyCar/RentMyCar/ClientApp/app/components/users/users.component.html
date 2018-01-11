@@ -1,0 +1,18 @@
+<h1>Users</h1>
+
+<p *ngIf="!users"><em>Loading...</em></p>
+
+<div class="row" *ngIf="users">
+    <div class="col-sm-6 col-md-4" *ngFor="let user of users">
+        <div class="thumbnail">
+            <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png" alt="">
+            <div class="caption">
+                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                <p>User {{user.userName}}</p>
+                <p>Email {{user.email}}</p>
+                <p><a href="#" class="btn btn-primary" role="button">Learn More</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
