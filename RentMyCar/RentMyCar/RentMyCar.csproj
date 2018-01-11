@@ -32,6 +32,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\shared\adress.ts" />
+    <None Remove="ClientApp\app\shared\car.ts" />
+    <None Remove="ClientApp\app\shared\DataService.ts" />
+    <None Remove="ClientApp\app\shared\equipment.ts" />
+    <None Remove="ClientApp\app\shared\login.ts" />
+    <None Remove="ClientApp\app\shared\performance.ts" />
+    <None Remove="ClientApp\app\shared\price.ts" />
+    <None Remove="ClientApp\app\shared\register.ts" />
+    <None Remove="ClientApp\app\shared\rent.ts" />
+    <None Remove="ClientApp\app\shared\user.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -39,6 +52,19 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\shared\adress.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\car.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\dataService.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\equipment.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\login.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\performance.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\price.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\register.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\rent.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\user.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

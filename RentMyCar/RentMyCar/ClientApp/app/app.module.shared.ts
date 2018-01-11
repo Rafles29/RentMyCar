@@ -9,6 +9,8 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsersComponent } from './components/users/users.component';
 import { CarsComponent } from './components/cars/cars.component';
+import { LoginComponent } from './components/login/login.component';
+import { DataService } from './shared/dataService';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,8 @@ import { CarsComponent } from './components/cars/cars.component';
         NavMenuComponent,
         CarsComponent,
         UsersComponent,
-        HomeComponent
+        HomeComponent,
+        LoginComponent
     ],
     imports: [
         CommonModule,
@@ -27,8 +30,12 @@ import { CarsComponent } from './components/cars/cars.component';
             { path: 'home', component: HomeComponent },
             { path: 'users', component: UsersComponent },
             { path: 'cars', component: CarsComponent },
+            { path: 'login', component: LoginComponent },
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers: [
+        DataService
     ]
 })
 export class AppModuleShared {

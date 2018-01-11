@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { User } from '../../shared/user';
+import { DataService } from '../../shared/DataService';
 
 @Component({
     selector: 'users',
@@ -16,13 +18,4 @@ export class UsersComponent {
         }, error => console.error(error));
 
     }
-}
-
-interface User {
-    userName: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    users: any[];
-    rents: any[];
 }
