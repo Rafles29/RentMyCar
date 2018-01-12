@@ -1,31 +1,26 @@
-import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, Inject, OnInit } from '@angular/core';
+
+import { DataService } from '../../shared/dataService';
+import { Car } from '../../shared/car';
 
 @Component({
     selector: 'cars',
+    providers: [
+        DataService
+    ],
     templateUrl: './cars.component.html'
 })
-export class CarsComponent {
+export class CarsComponent implements OnInit{
     public cars: Car[];
 
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
-        
-        http.get(baseUrl + 'api/cars').subscribe(result => {
-            this.cars = result.json() as Car[];
-        }, error => console.error(error));
-        
+    constructor(private data: DataService) {
     }
-}
 
-interface Car {
-    carId: number;
-    manufactor: string;
-    model: string;
-    year: number;
-    avatarImage: string;
-    performance: null;
-    equipment: null;
-    price: null;
-    userName: string;
-    rents: any[];
+    public getCars(): void {
+        this.data.getCars().subscribe(cars => this.cars = cars);
+    }
+
+    ngOnInit() {
+        this.getCars();
+    }
 }
