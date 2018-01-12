@@ -13,6 +13,8 @@ import { CarsComponent } from './components/cars/cars.component';
 import { LoginComponent } from './components/login/login.component';
 import { CarService } from './shared/services/carService';
 import { UserService } from './shared/services/userService';
+import { CarComponent } from './components/car/car.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import { UserService } from './shared/services/userService';
         CarsComponent,
         UsersComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        CarComponent,
+        RegisterComponent
     ],
     imports: [
         CommonModule,
