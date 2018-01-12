@@ -41,6 +41,8 @@
     <None Remove="ClientApp\app\shared\price.ts" />
     <None Remove="ClientApp\app\shared\register.ts" />
     <None Remove="ClientApp\app\shared\rent.ts" />
+    <None Remove="ClientApp\app\shared\services\carService.ts" />
+    <None Remove="ClientApp\app\shared\services\userService.ts" />
     <None Remove="ClientApp\app\shared\user.ts" />
   </ItemGroup>
 
@@ -55,16 +57,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\shared\adress.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\car.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\dataService.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\equipment.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\login.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\performance.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\price.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\register.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\rent.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\user.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\adress.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\car.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\services\carService.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\services\dataService.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\equipment.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\login.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\performance.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\price.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\register.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\rent.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\services\userService.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\user.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

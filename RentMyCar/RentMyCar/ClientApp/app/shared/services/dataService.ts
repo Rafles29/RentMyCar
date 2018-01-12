@@ -3,8 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
-import { User } from './user';
-import { Car } from './car';
+import { User } from '../models/user';
+import { Car } from '../models/car';
 
 @Injectable()
 export class DataService {

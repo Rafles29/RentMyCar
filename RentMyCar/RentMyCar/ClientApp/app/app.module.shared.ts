@@ -11,7 +11,8 @@ import { HomeComponent } from './components/home/home.component';
 import { UsersComponent } from './components/users/users.component';
 import { CarsComponent } from './components/cars/cars.component';
 import { LoginComponent } from './components/login/login.component';
-import { DataService } from './shared/dataService';
+import { CarService } from './shared/services/carService';
+import { UserService } from './shared/services/userService';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { DataService } from './shared/dataService';
         ])
     ],
     providers: [
-        DataService
+        CarService,
+        UserService
     ]
 })
 export class AppModuleShared {
