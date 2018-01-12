@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../models/user';
+import { RegisterView } from '../models/register';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class UserService {
         return this.http.get<User>(this.baseUrl + "api/users/" + id);
     }
 
-    public register(user: User) {
+    public register(user: RegisterView) {
         return this.http.post(this.baseUrl + "api/account/register", user);
     }
 }

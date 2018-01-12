@@ -38,6 +38,7 @@ import { RegisterComponent } from './components/register/register.component';
             { path: 'users', component: UsersComponent },
             { path: 'cars', component: CarsComponent },
             { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

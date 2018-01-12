@@ -1,15 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../shared/services/userService';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    selector: 'app-register',
+    providers: [
+        UserService
+    ],
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
 
-  constructor() { }
+export class RegisterComponent {
+    model: any = {};
+    loading = false;
 
-  ngOnInit() {
-  }
+    constructor(
+        private router: Router,
+        private userService: UserService) { }
 
+    register() {
+        this.loading = true;
+        this.userService.register(this.model)
+            .subscribe(
+            data => {
+                // set success message and pass true paramater to persist the message after redirecting to the login page
+                this.router.navigate(['/login']);
+            },
+            error => {
+                this.loading = false;
+            });
+    }
 }
