@@ -64,7 +64,7 @@ namespace RentMyCar.Controllers
             return BadRequest();
         }
 
-        [HttpPost("createtoken")]
+        [HttpPost("authenticate")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
         {

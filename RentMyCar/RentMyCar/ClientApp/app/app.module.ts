@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -15,6 +14,9 @@ import { CarService } from './shared/services/carService';
 import { UserService } from './shared/services/userService';
 import { CarComponent } from './components/car/car.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AuthenticationService } from './shared/services/authentication.service';
+import { AlertService } from './shared/services/alert.service';
 
 @NgModule({
     declarations: [
@@ -25,11 +27,11 @@ import { RegisterComponent } from './components/register/register.component';
         HomeComponent,
         LoginComponent,
         CarComponent,
-        RegisterComponent
+        RegisterComponent,
+        AlertComponent
     ],
     imports: [
         CommonModule,
-        HttpModule,
         HttpClientModule,
         FormsModule,
         RouterModule.forRoot([
@@ -44,7 +46,9 @@ import { RegisterComponent } from './components/register/register.component';
     ],
     providers: [
         CarService,
-        UserService
+        UserService,
+        AuthenticationService,
+        AlertService
     ]
 })
 export class AppModuleShared {
