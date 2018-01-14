@@ -17,6 +17,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { AlertService } from './shared/services/alert.service';
+import { BearerService } from './shared/services/bearer.service';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { AlertService } from './shared/services/alert.service';
         CarService,
         UserService,
         AuthenticationService,
-        AlertService
+        AlertService,
+        BearerService
     ]
 })
 export class AppModuleShared {
