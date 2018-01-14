@@ -1,16 +1,20 @@
-<h1>Cars</h1>
-
+<div class="row">
+    <h2 class="col-12">Cars</h2>
+</div>
 <p *ngIf="!cars"><em>Loading...</em></p>
-
-<div class="row" *ngIf="cars">
-    <div class="col-sm-6 col-md-4" *ngFor="let car of cars">
-        <div class="thumbnail">
-            <img src="https://otomotopl-imagestmp.akamaized.net/images_otomotopl/854795010_1_732x488_2005r-warszawa_rev003.jpg" alt="">
-            <div class="caption">
-                <h3>{{car.manufactor}}  {{car.model}}</h3>
-                <p>Year {{car.year}}</p>
-                <p>Owner {{car.userName}}</p>
-                <p><a href="#" class="btn btn-primary" role="button">Learn More</a> <a href="#" class="btn btn-default" role="button">Rent</a></p>
+<div class="row row-content" *ngIf="cars">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let car of cars">
+        <div class="card">
+            <img class="card-img-top" src="https://otomotopl-imagestmp.akamaized.net/images_otomotopl/854795010_1_732x488_2005r-warszawa_rev003.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{car.manufactor}}  {{car.model}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Year {{car.year}}</li>
+                <li class="list-group-item">Owner {{car.userName}}</li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">Learn More</a>
             </div>
         </div>
     </div>
