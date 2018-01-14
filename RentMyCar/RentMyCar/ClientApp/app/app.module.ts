@@ -12,12 +12,12 @@ import { CarsComponent } from './components/cars/cars.component';
 import { LoginComponent } from './components/login/login.component';
 import { CarService } from './shared/services/carService';
 import { UserService } from './shared/services/userService';
-import { CarComponent } from './components/car/car.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { AlertService } from './shared/services/alert.service';
 import { BearerService } from './shared/services/bearer.service';
+import { CarDetailsComponent } from './components/car-details/car-details.component';
 
 @NgModule({
     declarations: [
@@ -27,9 +27,9 @@ import { BearerService } from './shared/services/bearer.service';
         UsersComponent,
         HomeComponent,
         LoginComponent,
-        CarComponent,
         RegisterComponent,
-        AlertComponent
+        AlertComponent,
+        CarDetailsComponent
     ],
     imports: [
         CommonModule,
@@ -40,6 +40,7 @@ import { BearerService } from './shared/services/bearer.service';
             { path: 'home', component: HomeComponent },
             { path: 'users', component: UsersComponent },
             { path: 'cars', component: CarsComponent },
+            { path: 'cars/:id', component: CarDetailsComponent },
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },
             { path: '**', redirectTo: 'home' }
