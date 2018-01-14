@@ -14,6 +14,7 @@ using RentMyCar.ViewModels;
 
 namespace RentMyCar.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/cars")]
     public class CarController : Controller
     {
@@ -28,11 +29,17 @@ namespace RentMyCar.Controllers
             this._userManger = userManger;
         }
         // GET: api/values
+        [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetCars()
+        public async Task<IActionResult> GetCars()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
+                var user = await _userManger.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return NotFound();
+                }
                 var cars = _repo.GetCars(User.Identity.Name);
                 return Ok(_mapper.Map<IEnumerable<Car>, IEnumerable<CarView>>(cars));
             }
@@ -41,6 +48,7 @@ namespace RentMyCar.Controllers
         }
 
         // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}", Name = "GetCar")]
         public IActionResult GetCar(int id)
         {
@@ -55,7 +63,6 @@ namespace RentMyCar.Controllers
         }
 
         // POST api/values
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<IActionResult> PostCar([FromBody]CarView newCar)
         {
@@ -81,7 +88,6 @@ namespace RentMyCar.Controllers
         }
 
         // PUT api/values/5
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public IActionResult PutCar(int id, [FromBody]Car car)
         {
@@ -100,7 +106,6 @@ namespace RentMyCar.Controllers
         }
 
         // DELETE api/values/5
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {

@@ -37,6 +37,7 @@
     <None Remove="ClientApp\app\shared\DataService.ts" />
     <None Remove="ClientApp\app\shared\equipment.ts" />
     <None Remove="ClientApp\app\shared\login.ts" />
+    <None Remove="ClientApp\app\shared\models\message.ts" />
     <None Remove="ClientApp\app\shared\performance.ts" />
     <None Remove="ClientApp\app\shared\price.ts" />
     <None Remove="ClientApp\app\shared\register.ts" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\shared\models\adress.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\models\car.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\message.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\services\carService.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\services\dataService.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\models\equipment.ts" />
