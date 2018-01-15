@@ -15,4 +15,12 @@ export class BearerService {
             throw new Error("Noone is logged in");
         }
     }
+    isLogedIn(): boolean {
+        let token = localStorage.getItem('Token');
+        console.log(token);
+        if (token) {
+            return true;
+        }
+        else return false;
+    }
 }
