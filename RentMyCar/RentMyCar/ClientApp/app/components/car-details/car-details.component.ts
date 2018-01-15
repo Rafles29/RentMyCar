@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Car } from '../../shared/models/car';
+import { CarService } from '../../shared/services/carService';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-car-details',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarDetailsComponent implements OnInit {
 
-  constructor() { }
+    public car: Car;
 
-  ngOnInit() {
-  }
+    constructor(private route: ActivatedRoute, private router: Router, private carService: CarService) {
+    }
+
+    public getCar(): void {
+        let id = this.route.snapshot.paramMap.get('id');
+        this.carService.getCar(id).subscribe(car => {
+            this.car = car;
+        });
+    }
+
+    ngOnInit() {
+        this.getCar();
+    }
 
 }

@@ -3,7 +3,7 @@ import { Equipment } from './equipment';
 import { Performance } from './performance';
 import { Rent } from './rent';
 
-export interface Car {
+export class Car {
     carId: number;
     manufactor: string;
     model: string;

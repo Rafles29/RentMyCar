@@ -13,7 +13,7 @@ export class CarService {
         return this.http.get<Car[]>(this.baseUrl + "api/Cars/");
     }
 
-    public getCar(id: number): Observable<Car> {
+    public getCar(id: any): Observable<Car> {
         return this.http.get<Car>(this.baseUrl + "api/Cars/" + id);
     }
 
