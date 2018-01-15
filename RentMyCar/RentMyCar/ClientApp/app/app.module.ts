@@ -21,6 +21,7 @@ import { CarDetailsComponent } from './components/car-details/car-details.compon
 import { AuthGuard } from './shared/services/auth.guard.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -39,16 +40,7 @@ import { MyCarsComponent } from './components/my-cars/my-cars.component';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'users', component: UsersComponent },
-            { path: 'cars', component: CarsComponent },
-            { path: 'cars/:id', component: CarDetailsComponent },
-            { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
-            { path: '**', redirectTo: 'home' }
-        ])
+        AppRoutingModule
     ],
     providers: [
         CarService,

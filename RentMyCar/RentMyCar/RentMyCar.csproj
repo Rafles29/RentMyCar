@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\app-routing.module.ts" />
     <None Remove="ClientApp\app\shared\adress.ts" />
     <None Remove="ClientApp\app\shared\car.ts" />
     <None Remove="ClientApp\app\shared\DataService.ts" />
@@ -58,6 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\app-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\models\adress.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\models\car.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\models\message.ts" />
