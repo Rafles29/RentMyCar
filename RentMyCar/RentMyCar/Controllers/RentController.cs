@@ -59,7 +59,7 @@ namespace RentMyCar.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(rent);
+                return Ok(_mapper.Map<Rent, RentView>(rent));
             }
             catch (Exception)
             {
@@ -87,7 +87,8 @@ namespace RentMyCar.Controllers
             }
 
             var addedRent = _repo.AddRent(User.Identity.Name, newRent);
-            return CreatedAtRoute("GetRent", new { id = addedRent.RentId }, addedRent);
+            var viewRent = _mapper.Map<Rent, RentView>(addedRent);
+            return CreatedAtRoute("GetRent", new { id = viewRent.RentId }, viewRent);
 
         }
 

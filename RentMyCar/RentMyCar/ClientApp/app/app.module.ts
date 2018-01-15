@@ -18,6 +18,9 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { AlertService } from './shared/services/alert.service';
 import { BearerService } from './shared/services/bearer.service';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
+import { AuthGuard } from './shared/services/auth.guard.service';
+import { JwtInterceptor } from './shared/services/jwt.interceptor';
+import { MyCarsComponent } from './components/my-cars/my-cars.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +32,8 @@ import { CarDetailsComponent } from './components/car-details/car-details.compon
         LoginComponent,
         RegisterComponent,
         AlertComponent,
-        CarDetailsComponent
+        CarDetailsComponent,
+        MyCarsComponent
     ],
     imports: [
         CommonModule,
@@ -51,7 +55,8 @@ import { CarDetailsComponent } from './components/car-details/car-details.compon
         UserService,
         AuthenticationService,
         AlertService,
-        BearerService
+        BearerService,
+        AuthGuard
     ]
 })
 export class AppModuleShared {

@@ -56,7 +56,7 @@ namespace RentMyCar.Controllers
 
             if (car == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             var mappedCar = _mapper.Map<Car, CarView>(car);
             return Ok(mappedCar);
@@ -77,7 +77,7 @@ namespace RentMyCar.Controllers
             }
 
             var car = _mapper.Map<CarView, Car>(newCar);
-            Console.WriteLine(User.Identity.Name);
+
             var user = await _userManger.FindByNameAsync(User.Identity.Name);
             if(user == null)
             {

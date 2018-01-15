@@ -1,16 +1,26 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Car } from '../models/car';
+import { BearerService } from './bearer.service'; 
 
 
 @Injectable()
 export class CarService {
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+    constructor(
+        private http: HttpClient,
+        @Inject('BASE_URL') private baseUrl: string,
+        private bearerService: BearerService) { }
 
     public getCars(): Observable<Car[]> {
         return this.http.get<Car[]>(this.baseUrl + "api/Cars/");
+    }
+
+    public getMyCars(): Observable<Car[]> {
+        return this.http.get<Car[]>(this.baseUrl + "api/Cars/", {
+            headers: new HttpHeaders().set('Authorization', this.bearerService.getAuthHeader()),
+        });
     }
 
     public getCar(id: any): Observable<Car> {
