@@ -1,4 +1,4 @@
-﻿export interface Performance {
+﻿export class Performance {
 
     zeroTo100: number;
     horsePower: number;

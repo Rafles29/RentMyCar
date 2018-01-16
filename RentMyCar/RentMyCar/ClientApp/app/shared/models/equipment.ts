@@ -1,3 +1,3 @@
-﻿export interface Equipment {
+﻿export class Equipment {
 
 }

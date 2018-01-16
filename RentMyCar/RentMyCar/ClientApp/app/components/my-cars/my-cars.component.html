@@ -1,5 +1,8 @@
-<div class="row">
-    <h2 class="col-12">Cars</h2>
+<div class="row mb-3">
+    <h2 class="mr-3">Cars </h2>
+    <button class="btn btn-danger" [routerLink]="['/cars/create']">
+        <i class="fas fa-plus-circle"></i> Add Car
+    </button>
 </div>
 <p *ngIf="!cars"><em>Loading...</em></p>
 <div class="row row-content" *ngIf="cars">

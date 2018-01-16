@@ -23,6 +23,7 @@ import { JwtInterceptor } from './shared/services/jwt.interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
+import { AddCarComponent } from './components/add-car/add-car.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { EditCarComponent } from './components/edit-car/edit-car.component';
         AlertComponent,
         CarDetailsComponent,
         MyCarsComponent,
-        EditCarComponent
+        EditCarComponent,
+        AddCarComponent
     ],
     imports: [
         CommonModule,

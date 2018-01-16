@@ -9,12 +9,14 @@ import { CarDetailsComponent } from './components/car-details/car-details.compon
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/services/auth.guard.service';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
+import { AddCarComponent } from './components/add-car/add-car.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'users', component: UsersComponent },
     { path: 'cars', component: CarsComponent },
+    { path: 'cars/create', component: AddCarComponent },
     { path: 'cars/:id', component: CarDetailsComponent },
     { path: 'cars/:id/edit', component: EditCarComponent, canActivate: [AuthGuard] },
     { path: 'mycars', component: MyCarsComponent, canActivate: [AuthGuard]},
