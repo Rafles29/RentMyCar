@@ -28,14 +28,20 @@ export class CarService {
     }
 
     public postCar(car: Car) {
-        return this.http.post(this.baseUrl + "api/Cars/", car);
+        return this.http.post(this.baseUrl + "api/Cars/", car, {
+            headers: new HttpHeaders().set('Authorization', this.bearerService.getAuthHeader()),
+        });
     }
 
     public putCar(car: Car) {
-        return this.http.put(this.baseUrl + "api/Cars/" + car.carId, car);
+        return this.http.put(this.baseUrl + "api/Cars/" + car.carId, car, {
+            headers: new HttpHeaders().set('Authorization', this.bearerService.getAuthHeader()),
+        });
     }
 
     public deleteCar(id: number) {
-        return this.http.delete(this.baseUrl + "api/Cars/" + id);
+        return this.http.delete(this.baseUrl + "api/Cars/" + id, {
+            headers: new HttpHeaders().set('Authorization', this.bearerService.getAuthHeader()),
+        });
     }
 }
