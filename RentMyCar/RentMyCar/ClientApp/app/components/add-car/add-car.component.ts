@@ -32,6 +32,9 @@ export class AddCarComponent implements OnInit {
             "midTermPrice": 0,
             "longTermPrice": 0
         };
+        this.car.manufactor = "";
+        this.car.model = "";
+        this.car.year = 0;
     }
 
     postCar() {
@@ -40,8 +43,8 @@ export class AddCarComponent implements OnInit {
             .subscribe(
             data => {
                 // set success message and pass true paramater to persist the message after redirecting to the login page
-                this.alertService.success('Putted successful', true);
-                console.log('Putted successful');
+                this.alertService.success('Create car successful', true);
+                console.log('Create car successful');
                 this.router.navigate(['/mycars']);
             },
             (err: HttpErrorResponse) => {

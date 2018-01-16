@@ -1,63 +1,66 @@
 <div class="singin">
     <div class="container">
-        <form class="form-signin" name="form" (ngSubmit)="f.form.valid && putCar()" #f="ngForm" novalidate>
+        <form class="form-signin" name="form" (ngSubmit)="f.form.valid && postCar()" #f="ngForm" novalidate>
             <h2 class="form-signin-heading">Add car</h2>
+
             <h4 class="form-signin-heading">Basic info</h4>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !manufactor.valid }">
-                <label for="Mileage">Manufactor</label>
+            <div class="form-group">
+                <label for="manufactor">Manufactor</label>
                 <input type="text" class="form-control" name="manufactor" [(ngModel)]="car.manufactor" #manufactor="ngModel" autofocus="autofocus" required />
                 <div *ngIf="f.submitted && !manufactor.valid" class="help-block">Manufactor is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !model.valid }">
-                <label for="Mileage">Model</label>
+            <div class="form-group">
+                <label for="model">Model</label>
                 <input type="text" class="form-control" name="model" [(ngModel)]="car.model" #model="ngModel" autofocus="autofocus" required />
                 <div *ngIf="f.submitted && !model.valid" class="help-block">Model is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !year.valid }">
-                <label for="Mileage">Year</label>
+            <div class="form-group">
+                <label for="year">Year</label>
                 <input type="text" class="form-control" name="year" [(ngModel)]="car.year" #year="ngModel" autofocus="autofocus" required />
                 <div *ngIf="f.submitted && !year.valid" class="help-block">Year is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !mileage.valid }">
-                <label for="Mileage">Mileage</label>
+            <div class="form-group">
+                <label for="mileage">Mileage</label>
                 <input type="text" class="form-control" name="mileage" [(ngModel)]="car.performance.millage" #mileage="ngModel" autofocus="autofocus" required />
                 <div *ngIf="f.submitted && !mileage.valid" class="help-block">Mileage is required</div>
             </div>
+
             <h4 class="form-signin-heading">Pricing</h4>
-            <div class="form-group mt-3" [ngClass]="{ 'has-error': f.submitted && !shortTermPrice.valid }">
-                <label for="short">Short Rent Price</label>
+            <div class="form-group mt-3">
+                <label for="shortTermPrice">Short Rent Price</label>
                 <input type="text" class="form-control" name="shortTermPrice" [(ngModel)]="car.price.shortTermPrice" #shortTermPrice="ngModel" required />
                 <div *ngIf="f.submitted && !shortTermPrice.valid" class="help-block">Short Rent Price is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !midTermPrice.valid }">
+            <div class="form-group">
                 <label for="midTermPrice">Medium Rent Price</label>
                 <input type="text" class="form-control" name="midTermPrice" [(ngModel)]="car.price.midTermPrice" #midTermPrice="ngModel" required />
                 <div *ngIf="f.submitted && !midTermPrice.valid" class="help-block">Medium Rent Price is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !longTermPrice.valid }">
+            <div class="form-group">
                 <label for="longTermPrice">Long Rent Price</label>
                 <input type="text" class="form-control" name="longTermPrice" [(ngModel)]="car.price.longTermPrice" #longTermPrice="ngModel" required />
                 <div *ngIf="f.submitted && !longTermPrice.valid" class="help-block">Long Rent Price is required</div>
             </div>
+
             <h4 class="form-signin-heading">Performance</h4>
-            <div class="form-group mt-3" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                <label for="short">0 - 100</label>
+            <div class="form-group mt-3">
+                <label for="zeroTo100">0 - 100</label>
                 <input type="text" class="form-control" name="zeroTo100" [(ngModel)]="car.performance.zeroTo100" #zeroTo100="ngModel" required />
-                <div *ngIf="f.submitted && !zeroTo100.valid" class="help-block">Last Name is required</div>
+                <div *ngIf="f.submitted && !zeroTo100.valid" class="help-block">0 - 100 is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <div class="form-group">
                 <label for="horsePower">Horse Power</label>
                 <input type="text" class="form-control" name="horsePower" [(ngModel)]="car.performance.horsePower" #horsePower="ngModel" required />
-                <div *ngIf="f.submitted && !horsePower.valid" class="help-block">Last Name is required</div>
+                <div *ngIf="f.submitted && !horsePower.valid" class="help-block">Horse Power is required</div>
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <div class="form-group">
                 <label for="maxSpeed">Max Speed</label>
                 <input type="text" class="form-control" name="maxSpeed" [(ngModel)]="car.performance.maxSpeed" #maxSpeed="ngModel" required />
-                <div *ngIf="f.submitted && !maxSpeed.valid" class="help-block">Last Name is required</div>
+                <div *ngIf="f.submitted && !maxSpeed.valid" class="help-block">Max Speed is required</div>
             </div>
 
             <div class="form-group">
-                <button [disabled]="loading" class="btn btn-lg btn-primary btn-block">Change</button>
+                <button [disabled]="loading" class="btn btn-lg btn-primary btn-block">Add</button>
                 <a [routerLink]="['/mycars']" class="btn btn-lg btn-danger btn-block">Cancel</a>
                 <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             </div>
