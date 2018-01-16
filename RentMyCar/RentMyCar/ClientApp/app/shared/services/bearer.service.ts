@@ -7,7 +7,6 @@ export class BearerService {
 
     getAuthHeader(): string {
         let token = localStorage.getItem('Token');
-        console.log(token);
         if (token) {
             return "Bearer " + token;
         }
@@ -17,7 +16,6 @@ export class BearerService {
     }
     isLogedIn(): boolean {
         let token = localStorage.getItem('Token');
-        console.log(token);
         if (token) {
             return true;
         }

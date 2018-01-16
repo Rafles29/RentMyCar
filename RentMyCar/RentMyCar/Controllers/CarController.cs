@@ -89,9 +89,9 @@ namespace RentMyCar.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult PutCar(int id, [FromBody]Car car)
+        public IActionResult PutCar(int id, [FromBody]CarView carView)
         {
-            if (car == null)
+            if (carView == null)
             {
                 return BadRequest();
             }
@@ -100,8 +100,10 @@ namespace RentMyCar.Controllers
             {
                 return BadRequest();
             }
+            var car = _mapper.Map<CarView, Car>(carView);
 
-            _repo.UpdateCar(User.Identity.Name, id, car);
+            _repo.SetPrice(User.Identity.Name, id, car.Price);
+            _repo.SetPerformance(User.Identity.Name, id, car.Performance);
             return NoContent();
         }
 

@@ -15,6 +15,7 @@
             </ul>
             <div class="card-body">
                 <button [routerLink]="['/cars/', car.carId]" class="btn btn-outline-primary">Learn More</button>
+                <button [routerLink]="['/cars/', car.carId, 'edit']" class="btn btn-outline-success">Edit</button>
                 <button class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" (click)="selectCar(car.carId)">Delete</button>
             </div>
         </div>

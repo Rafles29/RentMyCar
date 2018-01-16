@@ -46,7 +46,10 @@ namespace Model.DB
         }
         public IEnumerable<Car> GetCars(string userName)
         {
-            return _context.Cars.Include(c => c.User).ThenInclude(u => u.Cars).Where(c => c.User.UserName == userName)
+            return _context.Cars
+                .Include(c => c.User)
+                .ThenInclude(u => u.Cars)
+                .Where(c => c.User.UserName == userName)
                 .Include(c => c.Price)
                 .Include(c => c.Performance)
                 .Include(c => c.Equipment)
@@ -55,7 +58,8 @@ namespace Model.DB
         }
         public void UpdateCar(string userName, long carId, Car updatedCar)
         {
-            var originalCar = _context.Cars.Include(c => c.User).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
+            var originalCar = _context.Cars.Include(c => c.User).Include(c => c.Price).Include(c => c.Performance)
+                .Include(c => c.Equipment).Where(c => c.User.UserName == userName && c.CarId == carId).FirstOrDefault();
             if (originalCar == null)
             {
                 throw new UnauthorizedAccessException();

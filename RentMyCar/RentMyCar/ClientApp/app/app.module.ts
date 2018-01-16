@@ -22,6 +22,7 @@ import { AuthGuard } from './shared/services/auth.guard.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { AppRoutingModule } from './app-routing.module';
+import { EditCarComponent } from './components/edit-car/edit-car.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { AppRoutingModule } from './app-routing.module';
         RegisterComponent,
         AlertComponent,
         CarDetailsComponent,
-        MyCarsComponent
+        MyCarsComponent,
+        EditCarComponent
     ],
     imports: [
         CommonModule,
