@@ -68,12 +68,12 @@ td {
 }
 
 .display-2 {
-    font-size: 7rem;
+    font-size: 5rem;
     letter-spacing: -.5rem;
 }
 
 .display-2 .currency {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
     position: relative;
     font-weight: 400;
     top: -45px;

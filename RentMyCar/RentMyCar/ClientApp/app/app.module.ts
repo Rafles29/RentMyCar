@@ -24,6 +24,8 @@ import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
 import { AddCarComponent } from './components/add-car/add-car.component';
+import { RentService } from './shared/services/rent.service';
+import { RentsComponent } from './components/rents/rents.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,8 @@ import { AddCarComponent } from './components/add-car/add-car.component';
         CarDetailsComponent,
         MyCarsComponent,
         EditCarComponent,
-        AddCarComponent
+        AddCarComponent,
+        RentsComponent
     ],
     imports: [
         CommonModule,
@@ -52,7 +55,8 @@ import { AddCarComponent } from './components/add-car/add-car.component';
         AuthenticationService,
         AlertService,
         BearerService,
-        AuthGuard
+        AuthGuard,
+        RentService
     ]
 })
 export class AppModuleShared {

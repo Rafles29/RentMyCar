@@ -1,0 +1,25 @@
+<div class="row">
+    <h2 class="col-12">Rents</h2>
+</div>
+<p *ngIf="!rents"><em>Loading...</em></p>
+<div class="row row-content" *ngIf="rents">
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let rent of rents">
+        <div class="card">
+            <div class="card-header">
+                {{rent.rentId}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Info</h5>
+                <p class="card-text">From: {{rent.startDate}}</p>
+                <p class="card-text">To: {{rent.endDate}}</p>
+                <p class="card-text">Car: {{rent.carId}}</p>
+                <h5 class="card-title">Adress</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{rent.adress.city}}</li>
+                    <li class="list-group-item">{{rent.adress.postalCode}}</li>
+                    <li class="list-group-item">{{rent.adress.streetName}} {{rent.adress.streetNumber}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
