@@ -14,12 +14,13 @@ export class RentService {
         @Inject('BASE_URL') private baseUrl: string,
         private bearerService: BearerService) { }
 
-    private _selectedCar: number;
+    private _selectedCar: Car;
 
-    get selectedCar(): number {
+    get selectedCar(): Car {
         return this._selectedCar;
     }
-    set selectedRent(car: number) {
+
+    set selectedCar(car: Car) {
         this._selectedCar = car;
     }
 

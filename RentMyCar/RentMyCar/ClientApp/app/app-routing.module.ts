@@ -11,6 +11,7 @@ import { AuthGuard } from './shared/services/auth.guard.service';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
 import { AddCarComponent } from './components/add-car/add-car.component';
 import { RentsComponent } from './components/rents/rents.component';
+import { RentCarComponent } from './components/rent-car/rent-car.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     { path: 'cars/:id/edit', component: EditCarComponent, canActivate: [AuthGuard] },
     { path: 'mycars', component: MyCarsComponent, canActivate: [AuthGuard] },
     { path: 'rents', component: RentsComponent, canActivate: [AuthGuard] },
+    { path: 'rents/create', component: RentCarComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: '**', redirectTo: 'home' }

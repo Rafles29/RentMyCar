@@ -2,8 +2,8 @@
 
 export class Rent {
     rentId: number;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
 
     carId: number;
 

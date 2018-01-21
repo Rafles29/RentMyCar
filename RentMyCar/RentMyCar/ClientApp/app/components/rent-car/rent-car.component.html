@@ -1,0 +1,45 @@
+<div class="singin">
+    <div class="container">
+        <form class="form-signin needs-validations" name="form" (ngSubmit)="f.form.valid && postRent()" #f="ngForm" novalidate>
+            <h2 class="form-signin-heading">Rent car</h2>
+
+            <h4 class="form-signin-heading">Duration</h4>
+            <div class="form-group">
+                <label for="start">Start Date</label>
+                <input type="date" class="form-control" name="start" [(ngModel)]="rent.start" #start="ngModel" autofocus="autofocus" required />
+            </div>
+            <div class="form-group">
+                <label for="end">End Date</label>
+                <input type="date" class="form-control" name="end" [(ngModel)]="rent.end" #end="ngModel" autofocus="autofocus" required />
+            </div>
+            <h4 class="form-signin-heading">Location</h4>
+            <div class="form-group mt-3">
+                <label for="city">City</label>
+                <input type="text" class="form-control" name="city" [(ngModel)]="adress.city" #city="ngModel" required />
+                <div *ngIf="f.submitted && !city.valid" class="help-block">Short Rent Price is required</div>
+            </div>
+            <div class="form-group">
+                <label for="postalCode">Postal Code</label>
+                <input type="text" class="form-control" name="postalCode" [(ngModel)]="adress.postalCode" #postalCode="ngModel" required />
+                <div *ngIf="f.submitted && !postalCode.valid" class="help-block">Medium Rent Price is required</div>
+            </div>
+            <div class="form-group">
+                <label for="streetName">Street Name</label>
+                <input type="text" class="form-control" name="streetName" [(ngModel)]="adress.streetName" #streetName="ngModel" required />
+                <div *ngIf="f.submitted && !streetName.valid" class="help-block">streetName is required</div>
+            </div>
+            <div class="form-group">
+                <label for="streetNumber">Street Number</label>
+                <input type="text" class="form-control" name="streetNumber" [(ngModel)]="adress.streetNumber" #streetNumber="ngModel" required />
+                <div *ngIf="f.submitted && !streetNumber.valid" class="help-block">streetName is required</div>
+            </div>
+
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-lg btn-primary btn-block">Rent</button>
+                <a [routerLink]="['/cars']" class="btn btn-lg btn-danger btn-block">Cancel</a>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+
+        </form>
+    </div>
+</div>
