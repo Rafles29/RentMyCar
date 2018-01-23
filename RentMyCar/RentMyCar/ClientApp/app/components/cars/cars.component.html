@@ -17,15 +17,23 @@
         <input class="form-control mb-2 mr-sm-2" type="text" name="model" [(ngModel)]="filter.model" placeholder="Model">
     </div>
     <div class="form-group">
-        <label for="year">Year</label>
+        <label for="year">Minimal Year</label>
         <input class="form-control mb-2 mr-sm-2" type="number" name="year" [(ngModel)]="filter.year" [attr.min]="minYear" [attr.max]="[maxYear]" step="1" placeholder="Year">
+    </div>
+    <div class="form-group">
+        <label for="pMin">Price Min</label>
+        <input class="form-control mb-2 mr-sm-2" type="text" name="pMin" [(ngModel)]="pMin" placeholder="Minimum Price">
+    </div>
+    <div class="form-group">
+        <label for="pMax">Price Max</label>
+        <input class="form-control mb-2 mr-sm-2" type="text" name="pMax" [(ngModel)]="pMax" placeholder="Maximum Price">
     </div>
 </form>
 
 <h4>Page {{page}} of {{numberofPages()}}</h4>
 <div class="row row-content" *ngIf="cars">
 
-    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let car of cars| carsPipe:filter | slice:(page-1)*limit:page*limit">
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let car of cars| carsPipe:filter:pMin:pMax | slice:(page-1)*limit:page*limit">
         <div class="card">
             <img class="card-img-top" src="https://otomotopl-imagestmp.akamaized.net/images_otomotopl/854795010_1_732x488_2005r-warszawa_rev003.jpg" alt="Card image cap">
             <div class="card-body">
@@ -35,6 +43,7 @@
                 <li class="list-group-item">ID {{car.carId}}</li>
                 <li class="list-group-item">Year {{car.year}}</li>
                 <li class="list-group-item">Owner {{car.userName}}</li>
+                <li class="list-group-item">{{car.price.shortTermPrice}} per day</li>
             </ul>
             <div class="card-body">
                 <button [routerLink]="['/cars/', car.carId]" class="btn btn-outline-primary">Learn More</button>

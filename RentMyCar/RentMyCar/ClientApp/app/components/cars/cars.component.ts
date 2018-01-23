@@ -42,6 +42,10 @@ export class CarsComponent implements OnInit{
     page: number = 1;
 
 
+    pMin: number = 0;
+    pMax: number = 100000;
+
+
     filter: Car = new Car();
 
     constructor(private carService: CarService, private router: Router, private rentService: RentService) {
