@@ -14,7 +14,8 @@
                 <li class="list-group-item">Owner {{car.userName}}</li>
             </ul>
             <div class="card-body">
-                <button (click)="rent(car)" class="btn btn-outline-primary">Learn More</button>
+                <button [routerLink]="['/cars/', car.carId]" class="btn btn-outline-primary">Learn More</button>
+                <button (click)="rent(car)" class="btn btn-outline-success">Rent</button>
             </div>
         </div>
     </div>
