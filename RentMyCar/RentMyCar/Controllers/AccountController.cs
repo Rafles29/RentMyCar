@@ -61,7 +61,7 @@ namespace RentMyCar.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest();
+            return BadRequest("Model is invalid");
         }
 
         [HttpPost("authenticate")]
@@ -102,7 +102,7 @@ namespace RentMyCar.Controllers
                 }
                                 
             }
-            return BadRequest();
+            return BadRequest("Model is invalid");
         }
     }
 }

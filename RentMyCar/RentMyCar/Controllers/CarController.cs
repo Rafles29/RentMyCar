@@ -68,12 +68,12 @@ namespace RentMyCar.Controllers
         {
             if (newCar == null)
             {
-                return BadRequest();
+                return BadRequest("I don't see any car here");
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("Model is invalid");
             }
 
             var car = _mapper.Map<CarView, Car>(newCar);
@@ -93,12 +93,12 @@ namespace RentMyCar.Controllers
         {
             if (carView == null)
             {
-                return BadRequest();
+                return BadRequest("I don't see any car here");
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("Model is invalid");
             }
             var car = _mapper.Map<CarView, Car>(carView);
 
@@ -114,7 +114,7 @@ namespace RentMyCar.Controllers
             var car = _repo.GetCar(id);
             if (car == null)
             {
-                return BadRequest();
+                return BadRequest("I don't see any car here");
             }
             _repo.DeleteCar(User.Identity.Name, id);
             return NoContent();

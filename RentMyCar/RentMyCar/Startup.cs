@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
+using RentMyCar.ViewModels;
 
 namespace RentMyCar
 {
@@ -84,6 +85,11 @@ namespace RentMyCar
             services.AddTransient<IValidator<Adress>, AdressValidator>();
             services.AddTransient<IValidator<Car>, CarValidator>();
             services.AddTransient<IValidator<Rent>, RentValidator>();
+
+            services.AddTransient<IValidator<CarView>, CarViewValidator>();
+            services.AddTransient<IValidator<LoginViewModel>, LoginViewValidator>();
+            services.AddTransient<IValidator<RegisterViewModel>, RegisterViewValidator>();
+            services.AddTransient<IValidator<RentView>, RentViewValidator>();
 
         }
 

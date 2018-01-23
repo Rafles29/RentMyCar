@@ -78,7 +78,7 @@ namespace RentMyCar.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("Model is invalid");
             }
             if(newRent.StartDate == null)
             {
@@ -134,7 +134,7 @@ namespace RentMyCar.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("Model is invalid");
             }
             _repo.SetAdress(userName, id, adress);
             return NoContent();

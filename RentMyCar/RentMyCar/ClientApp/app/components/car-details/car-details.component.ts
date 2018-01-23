@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../shared/models/car';
 import { CarService } from '../../shared/services/carService';
+import { RentService } from '../../shared/services/rent.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
@@ -13,7 +14,7 @@ export class CarDetailsComponent implements OnInit {
 
     public car: Car;
 
-    constructor(private route: ActivatedRoute, private router: Router, private carService: CarService) {
+    constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private rentService: RentService) {
     }
 
     public getCar(): void {
@@ -25,6 +26,11 @@ export class CarDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.getCar();
+    }
+
+    public rent(): void {
+        this.rentService.selectedCar = this.car;
+        this.router.navigate(["/rents/create"]);
     }
 
 }

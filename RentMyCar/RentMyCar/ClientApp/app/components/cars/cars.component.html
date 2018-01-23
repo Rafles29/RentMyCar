@@ -2,8 +2,8 @@
     <h2 class="col-12">Cars</h2>
 </div>
 <p *ngIf="!cars"><em>Loading...</em></p>
-<h4>Filter</h4>
-<form>
+<h4 *ngIf="cars">Filter</h4>
+<form *ngIf="cars">
     <div class="form-group">
         <label for="id">Id: </label>
         <input class="form-control mb-2 mr-sm-2" type="number" name="id" [(ngModel)]="filter.carId" min="1" step="1" placeholder="Id">
@@ -43,7 +43,7 @@
                 <li class="list-group-item">ID {{car.carId}}</li>
                 <li class="list-group-item">Year {{car.year}}</li>
                 <li class="list-group-item">Owner {{car.userName}}</li>
-                <li class="list-group-item">{{car.price.shortTermPrice}} per day</li>
+                <li class="list-group-item">{{car.price.shortTermPrice | currency:'PLN'}} per day</li>
             </ul>
             <div class="card-body">
                 <button [routerLink]="['/cars/', car.carId]" class="btn btn-outline-primary">Learn More</button>
@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-<h4>Page settings</h4>
+<h4 *ngIf="cars">Page settings</h4>
 <form class="form-inline mb-3">
     <div class="form-group">
         <label for="limit">Limit: </label>
