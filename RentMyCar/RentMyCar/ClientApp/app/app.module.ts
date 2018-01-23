@@ -27,6 +27,7 @@ import { AddCarComponent } from './components/add-car/add-car.component';
 import { RentService } from './shared/services/rent.service';
 import { RentsComponent } from './components/rents/rents.component';
 import { RentCarComponent } from './components/rent-car/rent-car.component';
+import { CarsPipe } from './shared/pipes/cars.pipe';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { RentCarComponent } from './components/rent-car/rent-car.component';
         EditCarComponent,
         AddCarComponent,
         RentsComponent,
-        RentCarComponent
+        RentCarComponent,
+        CarsPipe
     ],
     imports: [
         CommonModule,
